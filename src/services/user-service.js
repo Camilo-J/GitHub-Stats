@@ -10,6 +10,16 @@ export async function createUser(userData) {
   return user;
 }
 
+export async function updateUser(userData) {
+  const { token, ...user } = await collectionClient("/profile", {
+    method: "PATCH",
+    body: userData,
+  });
+
+  sessionStorage.setItem(tokenKey, token);
+  return user;
+}
+
 export async function getUser() {
   const { token, ...user } = await collectionClient("/profile");
 

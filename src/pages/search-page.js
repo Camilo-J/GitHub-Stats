@@ -24,17 +24,17 @@ function SearchPage({ favorites, onAddFavorite, onRemoveFavorite }) {
     event.preventDefault();
     setState({ status: "pending", data: null, error: null });
 
-    getPokemon(query)
-      .then((data) => {
-        setState({ status: "success", data: data, error: null });
-      })
-      .catch((error) => {
-        setState({
-          status: "error",
-          data: null,
-          error: "El pokemon no existe! Intenta de nuevo",
-        });
-      });
+    // getPokemon(query)
+    //   .then((data) => {
+    //     setState({ status: "success", data: data, error: null });
+    //   })
+    //   .catch((error) => {
+    //     setState({
+    //       status: "error",
+    //       data: null,
+    //       error: "El pokemon no existe! Intenta de nuevo",
+    //     });
+    //   });
   }
 
   return (
@@ -50,14 +50,14 @@ function SearchPage({ favorites, onAddFavorite, onRemoveFavorite }) {
       </form>
       {status === "pending" && "Loading..."}
       {status === "idle" && "Ready to search"}
-      {status === "success" && (
+      {/* {status === "success" && (
         <PokemonData
           pokemon={pokemon}
           onAddFavorite={onAddFavorite}
           onRemoveFavorite={onRemoveFavorite}
           isFavorite={isFavorite}
         />
-      )}
+      )} */}
       {status === "error" && <p style={{ color: "red" }}>{error}</p>}
       <Link to="/favorites">Go to Favorites</Link>
     </div>
