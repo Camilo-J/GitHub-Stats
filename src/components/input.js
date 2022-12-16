@@ -8,10 +8,7 @@ export const StyledButton = styled("button")`
   background: #2D9CDB;
   box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  
+  margin: 0 auto 0 auto
 `;
 
 export const StyledDivForm = styled("div")`
