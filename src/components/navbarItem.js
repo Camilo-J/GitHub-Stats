@@ -34,7 +34,6 @@ function NavBarItem({ name, icon, to }) {
     <StyledNavLink
       to={to}
       style={({ isActive }) => {
-        console.log(isActive);
         if (!isActive) return;
         return {
           background: colors.gray[400],

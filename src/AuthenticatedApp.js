@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import Navbar from "./components/navbar";
 import { useAuth } from "./context/auth-context";
-
+import UpdateForm from "./components/update-form";
 import FavoritePage from "./pages/favorites-page";
 import SearchPage from "./pages/search-page";
 import {
@@ -72,6 +72,10 @@ function AuthenticatedApp() {
         <Route
           path="favorites"
           element={<FavoritePage favorites={favorites} />}
+        />
+        <Route
+          path="profile"
+          element={<UpdateForm/>}
         />
       </Routes>
       <Navbar></Navbar>
