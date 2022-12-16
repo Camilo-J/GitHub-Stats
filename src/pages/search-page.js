@@ -50,12 +50,10 @@ function SearchPage({ favorites, onAddFavorite, onRemoveFavorite }) {
     //Get GitApi
     getGitProfile(query)
       .then((data) => {
-        console.log(data);
         setState({ status: "succes", data: data, error: null });
       })
       .catch(console.log);
 
-    console.log("");
   }, [query]);
 
   function handleSubmit(event) {
@@ -102,10 +100,8 @@ function SearchPage({ favorites, onAddFavorite, onRemoveFavorite }) {
           alt="logo"
         />
       </MainView>
-      <p>profile</p>
       {status === "idle" && "No user..."}
       {status === "error" && <p style={{ color: "red" }}>{error}</p>}
-      <Link to="/favorites">Go to Favorites</Link>
     </Container>
   );
 }
