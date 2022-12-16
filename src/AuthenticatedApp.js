@@ -1,5 +1,7 @@
+import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
+import Navbar from "./components/navbar";
 import { useAuth } from "./context/auth-context";
 
 import FavoritePage from "./pages/favorites-page";
@@ -9,6 +11,13 @@ import {
   getFavorites,
   removeFavorite,
 } from "./services/favorites-service";
+
+const Div = styled("div")`
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
 
 function AuthenticatedApp() {
   const { logout } = useAuth();
@@ -47,7 +56,7 @@ function AuthenticatedApp() {
   }
 
   return (
-    <div>
+    <Div>
       <button onClick={logout}>Logout</button>
       <Routes>
         <Route
@@ -65,7 +74,8 @@ function AuthenticatedApp() {
           element={<FavoritePage favorites={favorites} />}
         />
       </Routes>
-    </div>
+      <Navbar></Navbar>
+    </Div>
   );
 }
 
