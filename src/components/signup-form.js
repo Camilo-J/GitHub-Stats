@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../context/auth-context";
-import Input from "./input";
+import {Input} from "./input";
 
 function SignupForm() {
   const { signup } = useAuth();

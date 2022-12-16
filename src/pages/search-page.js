@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import Input from "../components/input";
+import { Input } from "../components/input";
 import { getPokemon } from "../services/pokeapi-service";
 import PokemonData from "../components/pokemon-data";
 import { Link } from "react-router-dom";
