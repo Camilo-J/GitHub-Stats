@@ -3,6 +3,7 @@ import { Input } from "../components/input";
 import { Link } from "react-router-dom";
 import styled from "@emotion/styled";
 import { getGitProfile } from "../services/gitapi-service";
+import Repo from "../components/repoGithub";
 
 const Container = styled("div")`
   display: flex;
@@ -30,8 +31,6 @@ const Img = styled("img")`
 
 const MainView = styled("div")``;
 
-
-
 function SearchPage({ favorites, onAddFavorite, onRemoveFavorite }) {
   const [query, setQuery] = useState("");
 
@@ -40,49 +39,48 @@ function SearchPage({ favorites, onAddFavorite, onRemoveFavorite }) {
     status: "idle", // success - error - pending
     data: null,
     error: null,
-   });
+  });
   const { status, data: profile, error } = state;
 
   // const isFavorite = Boolean(
-    // favorites.find((fav) => fav.user_name === profile?.name)
+  // favorites.find((fav) => fav.user_name === profile?.name)
   // );
 
   useEffect(() => {
-    // Get GitApi
-    // setState({ status: "pending", data: null, error: null });
+    //Get GitApi
+    setState({ status: "pending", data: null, error: null });
+
     getGitProfile(query)
       .then((data) => {
-        console.log(data)
-        if (data.message == "Not Found") throw new Error("No users...") 
+        console.log(data);
+        if (data.message == "Not Found") throw new Error("No users...");
         setState({ status: "success", data: data, error: null });
-          
       })
-      .catch((error)=> {
-        console.log(error.messsage)
+
+      .catch((error) => {
+        console.log(error.messsage);
         setState({ status: "error", data: null, error: error.message });
       });
-
   }, [query]);
 
   function handleSubmit(event) {
     event.preventDefault();
     setState({ status: "pending", data: null, error: null });
-    console.log(event.target.value)
-    
+    console.log(event.target.value);
   }
 
   return (
     <Container>
-      <Form> 
-        <Input 
+      <Form>
+        <Input
           name="query"
           placeholder="username"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
-        /> 
+        />
         {/* <button type="submit">Search</button>   */}
       </Form>
-      
+
       {status === "pending" && "Retrieving user..."}
 
       {status === "success" && (
@@ -94,7 +92,7 @@ function SearchPage({ favorites, onAddFavorite, onRemoveFavorite }) {
         // />
         <div>
           <h1> {profile?.name} </h1>
-          <img src={profile.avatar_url}/> 
+          <img src={profile.avatar_url} alt={"Git user"} />
           <p>followers: {profile.followers}</p>
           <p>followings: {profile.following}</p>
           <p>public repos: {profile.public_repos}</p>
@@ -102,13 +100,15 @@ function SearchPage({ favorites, onAddFavorite, onRemoveFavorite }) {
         </div>
       )}
       {/* <MainView> */}
-        {/* <Img */}
-          {/* // src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
+      {/* <Img */}
+      {/* // src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
           // alt="logo"
         // /> */}
       {/* </MainView> */}
-      {status === "idle" && "No user..."} 
+      {status === "idle" && "No user..."}
       {status === "error" && <p style={{ color: "red" }}>{error.message}</p>}
+
+      <Link to="/favorites">Go to Favorites</Link>
     </Container>
   );
 }
