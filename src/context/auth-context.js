@@ -1,12 +1,13 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { createUser, getUser } from "../services/user-service";
 import * as auth from "../services/auth-services";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
 function AuthProvider(props) {
   const [user, setUser] = useState(null);
-
+  const navigate = useNavigate();
   useEffect(() => {
     getUser().then(setUser).catch(console.log);
   }, []);
@@ -16,7 +17,8 @@ function AuthProvider(props) {
   }
 
   function logout() {
-    auth.logout().then(() => setUser(null));
+    auth.logout().then(() => {setUser(null);
+    navigate("/")});
   }
 
   function signup(userData) {
