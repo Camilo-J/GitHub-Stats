@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Input from "../components/input";
 import { Link } from "react-router-dom";
 import styled from "@emotion/styled";
+import { getGitProfile } from "../services/gitapi-service";
 
 const Container = styled("div")`
   display: flex;
@@ -39,14 +40,21 @@ function SearchPage({ favorites, onAddFavorite, onRemoveFavorite }) {
     data: null,
     error: null,
   });
-  const { status, data: pokemon, error } = state;
+  const { status, data: profile, error } = state;
 
   const isFavorite = Boolean(
-    favorites.find((fav) => fav.pokemon_name === pokemon?.name)
+    favorites.find((fav) => fav.pokemon_name === profile?.name)
   );
 
   useEffect(() => {
     //Get GitApi
+    getGitProfile(query)
+      .then((data) => {
+        console.log(data);
+        setState({ status: "succes", data: data, error: null });
+      })
+      .catch(console.log);
+
     console.log("");
   }, [query]);
 
@@ -94,6 +102,7 @@ function SearchPage({ favorites, onAddFavorite, onRemoveFavorite }) {
           alt="logo"
         />
       </MainView>
+      <p>profile</p>
       {status === "idle" && "No user..."}
       {status === "error" && <p style={{ color: "red" }}>{error}</p>}
       <Link to="/favorites">Go to Favorites</Link>
