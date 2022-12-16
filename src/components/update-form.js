@@ -25,7 +25,7 @@ const Wrapper = styled.div`
   align-items: center;
   padding: 0px;
   gap: 36px;
-
+  align-self: center;
   width: 213px;
   height: 424px;
 `;
@@ -62,7 +62,7 @@ const StyledButton = styled.button`
 `;
 
 function UpdateForm() {
-  const { signup, user } = useAuth();
+  const { signup, user, logout } = useAuth();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -119,7 +119,7 @@ function UpdateForm() {
         />
         <StyledButton type="submit">Update</StyledButton>
       </Form>
-      <Link to="/">Go back to search</Link>
+      <Link onClick={logout}>Logout</Link>
     </Wrapper>
   );
 }
