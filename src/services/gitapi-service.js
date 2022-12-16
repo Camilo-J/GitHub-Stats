@@ -1,5 +1,6 @@
 const BASE_URI = "https://api.github.com/users/";
 
+<<<<<<< HEAD
 export async function getGitProfile(query) {
   let response = await fetch(BASE_URI + query);
 
@@ -23,6 +24,17 @@ export function getRepos(url) {
   return fetch(url).then((response) => response.json());
 }
 
+=======
+export function getGitProfile(query) {
+  console.log(BASE_URI + query)
+  return fetch(BASE_URI + query).then((response) => response.json());
+}
+
+export function getGitProfileFollowers(user) {
+  console.log(BASE_URI + user)
+  return fetch(BASE_URI + user + '/followers').then((response) => response.json());
+}
+>>>>>>> b9f7e47 (WIP: add a provissional profile page, including a button which render the Folllowers Page without any style)
 // useEffect(() => {
 //   setLoading(true);
 //   setError(false);

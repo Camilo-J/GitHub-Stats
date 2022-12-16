@@ -2,6 +2,9 @@ import styled from "@emotion/styled";
 import { RiStarFill } from "react-icons/ri";
 import { colors } from "../styles/colors";
 import { typography } from "../styles/typography";
+import FollowersPage from "../pages/followers-page";
+import { useState } from "react";
+import { getGitProfileFollowers } from "../services/gitapi-service"
 
 const FavoriteButton = styled("button")`
   display: flex;
@@ -18,6 +21,26 @@ const FavoriteButton = styled("button")`
   cursor: pointer;
 `;
 
+const StyledButton = styled.button`
+  display: flex;
+  width: 167px;
+  height: 36px;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background-color: ${colors.blue[500]};
+  border-radius: 0.5rem;
+  color: ${colors.white};
+  border: none;
+  ${typography.text.md}
+  line-height: 1em;
+  cursor: pointer;
+  &:hover {
+    background-color: ${colors.gray[300]};
+  }
+`;
+
 const PokeImage = styled("img")`
   max-width: 150px;
 `;
@@ -27,7 +50,11 @@ function formatId(id) {
   return id.length < 2 ? `#00${id}` : id.length < 3 ? `#0${id}` : `#${id}`;
 }
 
+<<<<<<< HEAD:src/components/user-data.js
 export default function userData({
+=======
+export default function PokemonData({
+>>>>>>> b9f7e47 (WIP: add a provissional profile page, including a button which render the Folllowers Page without any style):src/components/pokemon-data.js
   user,
   onAddFavorite,
   onRemoveFavorite,
@@ -45,8 +72,36 @@ export default function userData({
     </>
   );
 
+  // const [showFollowers, setShowFollowers] = useState(false);
+  const [state, setState] = useState({
+    status: "idle", // success - error - pending
+    data: null,
+    error: null,
+  });
+  const { status, data: followers, error } = state;
+
+
+  function handleFollowers(event) {
+    event.preventDefault();
+
+    // setShowFollowers(!showFollowers);
+    let realuser = user.login
+    getGitProfileFollowers(realuser)
+      .then((data) => {
+        setState({ status: "success", data: data, error: null });
+      })
+      .catch((error) => {
+        setState({
+          status: "error",
+          data: null,
+          error: "El pokemon no existe! Intenta de nuevo",
+        });
+      });
+  }
+
   return (
     <div>
+<<<<<<< HEAD:src/components/user-data.js
       <h2>{user.name}</h2>
       {/* <p>{formatId(pokemon.id)}</p> */}
       <p>#{user.id.toString().padStart(3, "0")}</p>
@@ -56,13 +111,34 @@ export default function userData({
       />
 
       {user.types.map((element) => (
-        <p key={element.slot}>{element.type.name}</p>
-      ))}
+=======
 
+      {status === "success" && <FollowersPage followers={followers} />}
+      <h2>{user.name}</h2>
+      {/* <p>{formatId(pokemon.id)}</p> */}
+      {/* <p>#{user.id.toString().padStart(3, "0")}</p> */}
+      <PokeImage
+        src={user.avatar_url}
+        alt={user.name}
+      />
+
+      {/* {pokemon.types.map((element) => (
+>>>>>>> b9f7e47 (WIP: add a provissional profile page, including a button which render the Folllowers Page without any style):src/components/pokemon-data.js
+        <p key={element.slot}>{element.type.name}</p>
+      ))} */}
+      {/* <Link to="/favorites">Followers: {user.followers}</Link> */}
+      <StyledButton
+        onClick={handleFollowers}
+      >Followers: {user.followers}</StyledButton>
+
+<<<<<<< HEAD:src/components/user-data.js
       <p>followers: {user.followers / 65} k</p>
       <p>followings: {user.followings / 171} </p>
       <p>public repos: {user.publicRepos / 249}</p>
       <p>public gists: {user.publicGists / 72}</p>
+=======
+      <p>Following: {user.following}</p>
+>>>>>>> b9f7e47 (WIP: add a provissional profile page, including a button which render the Folllowers Page without any style):src/components/pokemon-data.js
 
       <FavoriteButton
         onClick={() =>

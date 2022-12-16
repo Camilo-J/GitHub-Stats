@@ -60,7 +60,19 @@ function SearchPage({ favorites, onAddFavorite, onRemoveFavorite, onProfile }) {
   function handleSubmit(event) {
     event.preventDefault();
     setState({ status: "pending", data: null, error: null });
-    console.log(event.target.value);
+
+    getGitProfile(query)
+      .then((data) => {
+        setState({ status: "success", data: data, error: null });
+      })
+      .catch((error) => {
+        setState({
+          status: "error",
+          data: null,
+          error: "El pokemon no existe! Intenta de nuevo",
+        });
+      });
+
   }
 
   return (
@@ -99,6 +111,14 @@ function SearchPage({ favorites, onAddFavorite, onRemoveFavorite, onProfile }) {
           // alt="logo"
         // /> */}
       {/* </MainView> */}
+
+      <PokemonData
+        user={profile}
+        onAddFavorite={onAddFavorite}
+        onRemoveFavorite={onRemoveFavorite}
+        isFavorite={isFavorite}
+      />
+
 
       {status === "idle" && "No user..."}
 
