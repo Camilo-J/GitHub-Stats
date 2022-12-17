@@ -1,19 +1,13 @@
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
-<<<<<<< HEAD
-import { Routes, Route, Link } from "react-router-dom";
-=======
-import { Routes, Route, useParams } from "react-router-dom";
->>>>>>> b9f7e47 (WIP: add a provissional profile page, including a button which render the Folllowers Page without any style)
+
+import { Routes, Route, Link, useParams } from "react-router-dom";
 import Navbar from "./components/navbar";
 import { useAuth } from "./context/auth-context";
 import UpdateForm from "./components/update-form";
 import FavoritePage from "./pages/favorites-page";
-<<<<<<< HEAD
 import RepoPage from "./pages/repos-page";
-=======
 import FollowersPage from "./pages/followers-page";
->>>>>>> b9f7e47 (WIP: add a provissional profile page, including a button which render the Folllowers Page without any style)
 import SearchPage from "./pages/search-page";
 import {
   createFavorite,
@@ -40,6 +34,7 @@ function AuthenticatedApp() {
   const [favorites, setFavorites] = useState([]);
   const [profile, setProfile] = useState([]);
 
+  // const [user, setUser] = useState({});
 
   useEffect(() => {
     getFavorites().then(setFavorites);
@@ -88,7 +83,7 @@ function AuthenticatedApp() {
             />
           }
         />
-        <Route path="linder3hs" element={<FollowersPage />} />
+        {/* <Route path="users" element={<FollowersPage />} /> */}
         {/* <Route path="users/">
           <Route path=":user" element={<User />}>
             <Route path="/followers" element={<FollowersPage />}/>
