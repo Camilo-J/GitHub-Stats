@@ -33,7 +33,7 @@ const MainView = styled("div")``;
 
 function SearchPage({ favorites, onAddFavorite, onRemoveFavorite, onProfile }) {
   const [query, setQuery] = useState("");
-
+  const [showProfile, setShowProfile] = useState(true);
   // inactivo - resuelto - error
   const [state, setState] = useState({
     status: "idle", // success - error - pending
@@ -59,6 +59,7 @@ function SearchPage({ favorites, onAddFavorite, onRemoveFavorite, onProfile }) {
 
   function handleSubmit(event) {
     event.preventDefault();
+    setShowProfile(!showProfile);
     setState({ status: "pending", data: null, error: null });
 
     getGitProfile(query)

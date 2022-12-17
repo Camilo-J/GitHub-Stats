@@ -71,8 +71,9 @@ export default function PokemonData({
       <RiStarFill color={colors.yellow[500]} /> Remove Favorite
     </>
   );
+  console.log("user en poke-data:", user);
 
-  // const [showFollowers, setShowFollowers] = useState(false);
+  const [showFollowers, setShowFollowers] = useState(true);
   const [state, setState] = useState({
     status: "idle", // success - error - pending
     data: null,
@@ -80,12 +81,13 @@ export default function PokemonData({
   });
   const { status, data: followers, error } = state;
 
-
+  console.log("followers:", followers);
   function handleFollowers(event) {
     event.preventDefault();
+    setShowFollowers(!showFollowers);
 
-    // setShowFollowers(!showFollowers);
     let realuser = user.login
+    console.log("username en poke-data:", user.login)
     getGitProfileFollowers(realuser)
       .then((data) => {
         setState({ status: "success", data: data, error: null });
@@ -102,6 +104,7 @@ export default function PokemonData({
   return (
     <div>
 <<<<<<< HEAD:src/components/user-data.js
+<<<<<<< HEAD:src/components/user-data.js
       <h2>{user.name}</h2>
       {/* <p>{formatId(pokemon.id)}</p> */}
       <p>#{user.id.toString().padStart(3, "0")}</p>
@@ -112,16 +115,23 @@ export default function PokemonData({
 
       {user.types.map((element) => (
 =======
+=======
+      {showFollowers ?
+        (
+          <div>
+            <h2>{user.name}</h2>
+            <PokeImage
+              src={user.avatar_url}
+              alt={user.name}
+            />
+            <StyledButton
+              onClick={handleFollowers}
+            >Followers: {user.followers}</StyledButton>
+>>>>>>> 8a4c9e8 (WIP: Add styles for the cards of each follower, add provitional logic to search page and user data to just render the views we want):src/components/pokemon-data.js
 
-      {status === "success" && <FollowersPage followers={followers} />}
-      <h2>{user.name}</h2>
-      {/* <p>{formatId(pokemon.id)}</p> */}
-      {/* <p>#{user.id.toString().padStart(3, "0")}</p> */}
-      <PokeImage
-        src={user.avatar_url}
-        alt={user.name}
-      />
+            <p>Following: {user.following}</p>
 
+<<<<<<< HEAD:src/components/user-data.js
       {/* {pokemon.types.map((element) => (
 >>>>>>> b9f7e47 (WIP: add a provissional profile page, including a button which render the Folllowers Page without any style):src/components/pokemon-data.js
         <p key={element.slot}>{element.type.name}</p>
@@ -147,6 +157,19 @@ export default function PokemonData({
       >
         {isFavorite ? favoriteContent : regularContent}
       </FavoriteButton>
+=======
+            <FavoriteButton
+              onClick={() =>
+                isFavorite ? onRemoveFavorite(user) : onAddFavorite(user)
+              }
+            >
+              {isFavorite ? favoriteContent : regularContent}
+            </FavoriteButton>
+          </div>
+        )
+        : status === "success" && (<FollowersPage followers={followers} />
+        )}
+>>>>>>> 8a4c9e8 (WIP: Add styles for the cards of each follower, add provitional logic to search page and user data to just render the views we want):src/components/pokemon-data.js
     </div>
   );
 }

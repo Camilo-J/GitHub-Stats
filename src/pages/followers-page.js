@@ -46,9 +46,10 @@ const FollowersCard = styled("div")`
   box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
 `;
+
 const PokeImage = styled.img`
   border-radius: 50px;
-  width: 40px;
+   width: 40px;
   height: 40px;
 `;
 
@@ -64,10 +65,12 @@ function FollowersPage({ followers }) {
       {followers.map((follower, index) => (
         <FollowersContainer>
           <FollowersCard value={follower.login} key={`unq${index}`}>
+
             <PokeImage
               src="https://s3-alpha-sig.figma.com/img/5215/dacf/3b688b2a3dd2a02199de17ea0d7b5c09?Expires=1672012800&Signature=owRR5x8O9uqQQ1lQW3Ip4weQEhZfnrgUDiB6KoSAnCvLSxdDh8G6VbQzgKsj0IL9-tH8ADoo7AaUI2vOtbgtUo137po0DDuNzeai4ymqHMxuLEvhANS60nXzdg6tF6DBV6rs6kkuao28IT4pr3PVzqH-Lxz82mMb~zDhKrc2BbxEk2NSHKQdF7WzcfB9rxpQv1vMxLydJtq2GE8oegF1E5KE0pCD2efZ9DilvgUlNZcoQjECdlRqoHTf1txf~k9RIqNPxjy3gYVOBvkgYIyA0ofRPAOe4a49fly1~frXT84MX3r~18UUQYA~1vpK2UFRj-4iAilOQoNoSzI4mMoqTA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
               alt="icono"
             />
+
             {follower.login}
           </FollowersCard>
         </FollowersContainer>
