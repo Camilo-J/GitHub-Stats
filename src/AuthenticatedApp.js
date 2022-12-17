@@ -5,6 +5,7 @@ import Navbar from "./components/navbar";
 import { useAuth } from "./context/auth-context";
 import UpdateForm from "./components/update-form";
 import FavoritePage from "./pages/favorites-page";
+import RepoPage from "./pages/repos-page";
 import SearchPage from "./pages/search-page";
 import {
   createFavorite,
@@ -23,6 +24,7 @@ const Div = styled("div")`
 function AuthenticatedApp() {
   const { logout } = useAuth();
   const [favorites, setFavorites] = useState([]);
+  const [profile, setProfile] = useState([]);
 
   useEffect(() => {
     getFavorites().then(setFavorites);
@@ -67,6 +69,7 @@ function AuthenticatedApp() {
               favorites={favorites}
               onAddFavorite={handleAddFavorite}
               onRemoveFavorite={handleRemoveFavorite}
+              onProfile={setProfile}
             />
           }
         />
@@ -74,10 +77,17 @@ function AuthenticatedApp() {
           path="favorites"
           element={<FavoritePage favorites={favorites} />}
         />
-        <Route
-          path="profile"
-          element={<UpdateForm/>}
-        />
+
+        <Route path="profile" element={<UpdateForm />} />
+
+        <Route path="/users/:username">
+          <Route
+            path="repos"
+            element={<RepoPage profile={profile}></RepoPage>}
+          />
+          {/* <Route path="followers" />
+          <Route path="followings" /> */}
+        </Route>
       </Routes>
       <Navbar></Navbar>
     </Div>

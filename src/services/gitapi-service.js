@@ -1,8 +1,28 @@
 const BASE_URI = "https://api.github.com/users/";
 
-export function getGitProfile(query) {
-  return fetch(BASE_URI + query).then((response) => response.json());
+export async function getGitProfile(query) {
+  let response = await fetch(BASE_URI + query);
+
+  let data;
+
+  if (!response.ok) {
+    try {
+      data = await response.json();
+    } catch (error) {
+      throw new Error(response.statusText);
+    }
+    throw new Error(data.message);
+  }
+
+  data = await response.json();
+
+  return data;
 }
+
+export function getRepos(url) {
+  return fetch(url).then((response) => response.json());
+}
+
 // useEffect(() => {
 //   setLoading(true);
 //   setError(false);
