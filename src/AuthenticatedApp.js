@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 
-import { Routes, Route, Link, useParams } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/navbar";
 import { useAuth } from "./context/auth-context";
 import UpdateForm from "./components/update-form";
@@ -24,18 +24,11 @@ const Div = styled("div")`
   // align-items: center;
 `;
 
-// function User() {
-//   // Get the userId param from the URL.
-//   let { user } = useParams();
-//   // ...
-// }
-
 function AuthenticatedApp() {
   const { logout } = useAuth();
   const [favorites, setFavorites] = useState([]);
 
   const [profile, setProfile] = useState(null);
-
 
   useEffect(() => {
     getFavorites().then(setFavorites);
@@ -48,12 +41,10 @@ function AuthenticatedApp() {
       githubUser_avatar_url: profile?.avatar_url,
     };
 
-
     createFavorite(data)
       .then((newFavorite) => setFavorites([...favorites, newFavorite]))
       .catch(console.log);
-
-    }
+  }
 
   function handleRemoveFavorite(pokemon) {
     const favorite = favorites.find(
@@ -80,17 +71,9 @@ function AuthenticatedApp() {
               onAddFavorite={handleAddFavorite}
               onRemoveFavorite={handleRemoveFavorite}
               onProfile={setProfile}
-
             />
           }
         />
-        {/* <Route path="users" element={<FollowersPage />} /> */}
-        {/* <Route path="users/">
-          <Route path=":user" element={<User />}>
-            <Route path="/followers" element={<FollowersPage />}/>
-          </Route>
-        </Route> */}
-
         <Route
           path="favorites"
           element={<FavoritePage favorites={favorites} />}
@@ -111,8 +94,6 @@ function AuthenticatedApp() {
             path="repos"
             element={<RepoPage profile={profile}></RepoPage>}
           />
-          {/* <Route path="followers" />
-          <Route path="followings" /> */}
         </Route>
       </Routes>
       <Navbar></Navbar>

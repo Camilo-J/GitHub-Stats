@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { Input } from "../components/input";
-import { Link } from "react-router-dom";
 import styled from "@emotion/styled";
+
+import { Input } from "../components/input";
 import { getGitProfile } from "../services/gitapi-service";
-import Repo from "../components/repoGithub";
 import ProfileData from "./profile-data";
 
 const Container = styled("div")`
@@ -33,7 +32,6 @@ const Img = styled("img")`
 const MainView = styled("div")``;
 
 function SearchPage({ favorites, onAddFavorite, onRemoveFavorite, onProfile }) {
-
   const [query, setQuery] = useState("");
   const [showProfile, setShowProfile] = useState(true);
   // inactivo - resuelto - error
@@ -42,7 +40,6 @@ function SearchPage({ favorites, onAddFavorite, onRemoveFavorite, onProfile }) {
     data: null,
     error: null,
   });
-
 
   const { status, data: profile, error } = state;
 
@@ -60,7 +57,6 @@ function SearchPage({ favorites, onAddFavorite, onRemoveFavorite, onProfile }) {
       });
   }, [query, onProfile]);
 
-
   function handleSubmit(event) {
     event.preventDefault();
     setShowProfile(!showProfile);
@@ -77,7 +73,6 @@ function SearchPage({ favorites, onAddFavorite, onRemoveFavorite, onProfile }) {
           error: "El pokemon no existe! Intenta de nuevo",
         });
       });
-
   }
 
   return (
@@ -89,39 +84,31 @@ function SearchPage({ favorites, onAddFavorite, onRemoveFavorite, onProfile }) {
           value={query}
           onChange={(event) => setQuery(event.target.value)}
         />
-        {/* <button type="submit">Search</button>   */}
       </Form>
 
       {status === "pending" && "Retrieving user..."}
 
-      {status === "success" && (
-        <ProfileData profile={profile} />
+      {status === "success" && <ProfileData profile={profile} />}
+
+      {profile ? (
+        ""
+      ) : (
+        <Img
+          src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
+          alt="logo"
+        />
       )}
-      {/* <MainView> */}
-      {/* <Img */}
-      {/* // src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
-          // alt="logo"
-        // /> */}
-      {/* </MainView> */}
 
-      {/* <PokemonData
-        user={profile}
-        onAddFavorite={onAddFavorite}
-        onRemoveFavorite={onRemoveFavorite}
-        isFavorite={isFavorite}
-      /> */}
-
-
-      {status === "idle" && "No user..."}
+      {query === "" && "No user..."}
 
       {status === "error" && query !== "" && (
-        <p style={{ color: "red" }}>{error}</p>
+        <p style={{ color: "red" }}>{error.message}</p>
       )}
 
-      <Link to="/favorites">Go to Favorites</Link>
+      {/* <Link to="/favorites">Go to Favorites</Link>
       <Link to={`users/${profile?.login}/followers`}>Followers</Link>
       <Link to={`users/${profile?.login}/followings`}>Followings</Link>
-      <Link to={`users/${profile?.login}/repos`}>RepossGit</Link>
+      <Link to={`users/${profile?.login}/repos`}>RepossGit</Link> */}
     </Container>
   );
 }

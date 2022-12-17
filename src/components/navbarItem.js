@@ -7,7 +7,7 @@ const StyledNavLink = styled(NavLink)`
   display: flex;
   gap: 0.75rem;
   ${typography.text.md};
-  color: ${colors.gray[600]};
+  color: #bdbdbd;
   font-weight: 500;
   align-items: center;
   border-radius: 0.375rem;
@@ -37,7 +37,11 @@ function NavBarItem({ name, icon, to }) {
         if (!isActive) return;
         return {
           background: colors.gray[400],
-          color: "#BDBDBD",
+          "&:hover": {
+            svg: {
+              fill: "#828282",
+            },
+          },
           "&:visited": {
             svg: {
               fill: "#fffff",

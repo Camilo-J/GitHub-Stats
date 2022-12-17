@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
-import { typography } from "../styles"
+import { typography } from "../styles";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getGitProfileFollowers } from "../services/gitapi-service"
+import { getGitProfileFollowers } from "../services/gitapi-service";
 
 const MainTitle = styled.h1`
   display: flex;
@@ -16,7 +16,7 @@ const MainTitle = styled.h1`
   margin-inline-end: 0px;
   font-style: normal;
   font-weight: 400;
-`
+`;
 
 const Wrapper = styled("div")`
   display: flex;
@@ -34,7 +34,6 @@ const FollowersContainer = styled.div`
   gap: 16px;
 `;
 
-
 const FollowersCard = styled("div")`
   display: flex;
   flex-direction: row;
@@ -45,12 +44,10 @@ const FollowersCard = styled("div")`
   width: 300px;
   height: 56px;
   ${typography.text.md};
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
 `;
-
-
 
 const PokeImage = styled.img`
   border-radius: 50px;
@@ -59,7 +56,6 @@ const PokeImage = styled.img`
 `;
 
 function FollowersPage({ profile }) {
-
   const [followers, setFollowers] = useState([]);
   useEffect(() => {
     getGitProfileFollowers(profile.login)
@@ -71,7 +67,7 @@ function FollowersPage({ profile }) {
 
   return (
     <Wrapper>
-      <MainTitle>Followers ({followers.length})</MainTitle>
+      <MainTitle>Followers ({profile.followers})</MainTitle>
 
       {followers.map((follower, index) => (
         <FollowersContainer>

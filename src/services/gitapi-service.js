@@ -24,13 +24,17 @@ export function getRepos(url) {
 }
 
 export function getGitProfileFollowers(user) {
-  console.log(BASE_URI + user)
-  return fetch(BASE_URI + user + '/followers?per_page=100').then((response) => response.json());
+  console.log(BASE_URI + user);
+  return fetch(BASE_URI + user + "/followers?per_page=7&page=1").then(
+    (response) => response.json()
+  );
 }
 
 // '/followers?per_page=63'
 
 export function getGitProfileFollowings(user) {
-  console.log(BASE_URI + user)
-  return fetch(BASE_URI + user + '/following?per_page=100').then((response) => response.json());
+  console.log(BASE_URI + user);
+  return fetch(BASE_URI + user + "/following?per_page=100").then((response) =>
+    response.json()
+  );
 }
