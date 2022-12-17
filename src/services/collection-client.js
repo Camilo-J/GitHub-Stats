@@ -5,7 +5,7 @@ export default async function collectionClient(
   { method, headers, body } = {}
 ) {
   const token = sessionStorage.getItem(tokenKey);
-
+  console.log(body);
   if (token) {
     headers = {
       Authorization: `Bearer ${token}`,

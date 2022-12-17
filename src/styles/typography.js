@@ -22,7 +22,10 @@ export const typography = {
     `,
     lg: `
     font-size: 1.125rem;
-    line-height: 1.75rem;
+    line-height: 1.56rem;
+    font-style: normal;
+    font-weight: 700;
+    text-align: center;
     `,
     xl: `
     font-size: 1.25rem;

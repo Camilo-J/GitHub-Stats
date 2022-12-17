@@ -3,7 +3,7 @@ import Icon from "./Icon";
 import { VscRepoForked } from "react-icons/vsc";
 import { AiOutlineStar } from "react-icons/ai";
 import { BsCircleFill } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { languageColors } from "../styles/colors";
 
 const ContainRepo = styled("a")`
   min-width: 330px;
@@ -53,7 +53,10 @@ const Repo = ({
       <Title>{name}</Title>
       <Description>{description}</Description>
       <Icons>
-        <Icon icon={<BsCircleFill />} text={language} />
+        <Icon
+          icon={<BsCircleFill style={{ color: languageColors[language] }} />}
+          text={language}
+        />
         <Icon icon={<AiOutlineStar />} text={stars} />
         <Icon icon={<VscRepoForked />} text={fork} />
       </Icons>

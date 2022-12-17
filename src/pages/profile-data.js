@@ -1,10 +1,16 @@
 import styled from "@emotion/styled";
-import { typography } from "../styles";
-import { RiStarFill, RiCodeBoxFill } from "react-icons/ri";
+import { colors, typography } from "../styles";
+import { RiStarFill, RiCodeBoxFill, RiStarLine } from "react-icons/ri";
 import { FaUsers } from "react-icons/fa";
 import { RiUserHeartFill } from "react-icons/ri";
 import { RiBookMarkFill } from "react-icons/ri";
 import CardIcon from "../components/CardIcon";
+import {
+  createFavorite,
+  getFavorites,
+  removeFavorite,
+} from "../services/favorites-service";
+import { useEffect, useState } from "react";
 
 const Container = styled("div")`
   display: flex;
@@ -21,6 +27,17 @@ const ContainerCard = styled("div")`
   grid-row-gap: 17px;
 `;
 
+const NameContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 4px;
+
+  width: 161px;
+  height: 25px;
+`;
+
 const UserPic = styled.img`
   width: 120px;
   height: 120px;
@@ -28,7 +45,9 @@ const UserPic = styled.img`
 `;
 
 const UserName = styled.p`
-  width: 132px;
+  display: flex;
+  min-width: 132px;
+  gap: 0.5rem;
   ${typography.text.lg};
 `;
 
@@ -38,25 +57,93 @@ const UserBio = styled.p`
   text-align: center;
 `;
 
+const FavoriteButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: none;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+`;
+
 export default function ProfileData({ profile }) {
+  const [favorites, setFavorites] = useState([]);
+
+  const regularContent = (
+    <>
+      <RiStarLine color={"#828282"} style={{ fontSize: "1.3rem" }} />
+    </>
+  );
+
+  const favoriteContent = (
+    <>
+      <RiStarFill color={colors.yellow[500]} style={{ fontSize: "1.3rem" }} />
+    </>
+  );
+
+  useEffect(() => {
+    getFavorites().then(setFavorites);
+  }, []);
+
+  function handleAddFavorite(profile) {
+    const data = {
+      name: profile.name,
+      username: profile.login,
+      avatar_url: profile.avatar_url,
+    };
+
+    createFavorite(data)
+      .then((newFavorite) => setFavorites([...favorites, newFavorite]))
+      .catch(console.log);
+  }
+
+  function handleRemoveFavorite(profile) {
+    const favorite = favorites.find((fav) => fav.username === profile?.login);
+
+    removeFavorite(favorite.id).then(() => {
+      const newFavorites = favorites.filter(
+        (fav) => fav.username !== profile?.login
+      );
+
+      setFavorites(newFavorites);
+    });
+  }
+
+  const isFavorite = Boolean(
+    favorites.find((fav) => fav.username === profile?.login)
+  );
+
   return (
     <Container>
-      <UserPic src={profile.avatar_url} alt={"Git user"} />
-      <UserName> {profile?.name} </UserName>
+      <UserPic src={profile?.avatar_url} alt={"Git user"} />
+      <NameContainer>
+        <UserName>{profile?.name}</UserName>
+        <FavoriteButton
+          onClick={() =>
+            isFavorite
+              ? handleRemoveFavorite(profile)
+              : handleAddFavorite(profile)
+          }
+        >
+          {isFavorite ? favoriteContent : regularContent}
+        </FavoriteButton>
+      </NameContainer>
       <UserBio> {profile?.bio} </UserBio>
-      {/* Card for repos, following, followers, etc */}
+
       <ContainerCard>
         <CardIcon
           icon={<FaUsers />}
           text={"followers"}
-          amount={profile.followers}
+          amount={profile?.followers}
           url={`users/${profile?.login}/followers`}
           color={"#2D9CDB"}
         />
         <CardIcon
           icon={<RiUserHeartFill />}
           text={"followings"}
-          amount={profile.following}
+          amount={profile?.following}
           url={`users/${profile?.login}/followings`}
           color={"#F2994A"}
         />
@@ -70,7 +157,7 @@ export default function ProfileData({ profile }) {
         <CardIcon
           icon={<RiCodeBoxFill />}
           text={"public gists"}
-          amount={profile.public_gists}
+          amount={profile?.public_gists}
           url={"/"}
           color={"#828282"}
         />

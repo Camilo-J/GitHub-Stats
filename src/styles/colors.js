@@ -85,3 +85,19 @@ export const colors = {
 
   background: "#E5E5E5",
 };
+
+export const languageColors = {
+  JavaScript: "#F2C94C",
+  Ruby: "#701516",
+  Python: "#3572A5",
+  TypeScript: "#2b7489",
+  Java: "#b07219",
+  Kotlin: "#F18E33",
+  "C#": "#178600",
+  Dart: "#00B4AB",
+  HTML: "#e34c26",
+  CSS: "#563d7c",
+  Go: "#00ADD8",
+  Shell: "#89e051",
+  elixir: "#6e4a7e",
+};
