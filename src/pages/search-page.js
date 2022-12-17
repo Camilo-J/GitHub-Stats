@@ -50,7 +50,7 @@ function SearchPage({ favorites, onAddFavorite, onRemoveFavorite, onProfile }) {
     getGitProfile(query)
       .then((data) => {
         onProfile(data);
-        setState({ status: "succes", data: data, error: null });
+        setState({ status: "success", data: data, error: null });
       })
       .catch((error) => {
         setState({ status: "error", data: null, error: error.message });
