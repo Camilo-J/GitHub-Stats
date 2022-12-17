@@ -40,6 +40,7 @@ function SearchPage({ favorites, onAddFavorite, onRemoveFavorite, onProfile }) {
     data: null,
     error: null,
   });
+
   const { status, data: profile, error } = state;
 
   useEffect(() => {
@@ -48,20 +49,13 @@ function SearchPage({ favorites, onAddFavorite, onRemoveFavorite, onProfile }) {
 
     getGitProfile(query)
       .then((data) => {
-        console.log(data);
-
-        if (data.message == "Not Found") throw new Error("No users...");
-        setState({ status: "success", data: data, error: null });
-
         onProfile(data);
         setState({ status: "succes", data: data, error: null });
       })
-
       .catch((error) => {
-        console.log(error.messsage);
         setState({ status: "error", data: null, error: error.message });
       });
-  }, [query]);
+  }, [query, onProfile]);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -107,7 +101,10 @@ function SearchPage({ favorites, onAddFavorite, onRemoveFavorite, onProfile }) {
       {/* </MainView> */}
 
       {status === "idle" && "No user..."}
-      {status === "error" && <p style={{ color: "red" }}>{error.message}</p>}
+
+      {status === "error" && query !== "" && (
+        <p style={{ color: "red" }}>{error}</p>
+      )}
 
       <Link to="/favorites">Go to Favorites</Link>
       <Link to={`users/${profile?.login}/repos`}>RepossGit</Link>

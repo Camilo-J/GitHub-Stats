@@ -25,6 +25,7 @@ function AuthenticatedApp() {
   const { logout } = useAuth();
   const [favorites, setFavorites] = useState([]);
   const [profile, setProfile] = useState([]);
+
   useEffect(() => {
     getFavorites().then(setFavorites);
   }, []);
