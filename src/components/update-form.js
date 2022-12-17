@@ -2,7 +2,7 @@ import { useState } from "react";
 import styled from "@emotion/styled";
 import { colors, typography } from "../styles"
 import { useAuth } from "../context/auth-context";
-import Input from "./input";
+import { Input } from "./input";
 import { Link } from "react-router-dom";
 
 const Form = styled.form`

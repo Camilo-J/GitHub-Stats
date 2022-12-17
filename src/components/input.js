@@ -1,7 +1,41 @@
 import styled from "@emotion/styled";
 import { colors, typography } from "../styles";
 
+export const StyledButton = styled("button")`
+  border: none;
+  width: 80px;
+  height: 36px;
+  background: #2D9CDB;
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  margin: 0 auto 0 auto
+`;
+
+export const StyledDivForm = styled("div")`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+
+const StyledLabel = styled("label")`
+  text-align: left;
+`;
+
+const StyledDiv = styled("div")`
+  display: flex;
+  flex-direction: column;
+  width: 213px;
+ 
+`;
+
 const StyledInput = styled("input")`
+
+  border: none;
+  background: #FFFFFF;
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.25);
+  align-items: center;
+
   
   display: flex;
   flex-direction: row;
@@ -17,22 +51,14 @@ const StyledInput = styled("input")`
 
   background: #FFFFFF;
   box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.25);
+
   border-radius: 4px;
   ::placeholder {
     color: ${colors.gray.light};
   }
 `;
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0px;
-  margin: 0px;
-  gap: 4px;
 
-  width: 213px;
-  height: 52px;
-`
+
 
 const Label = styled.label`
   display: flex;
@@ -41,7 +67,9 @@ const Label = styled.label`
   margin: 0;
 `;
 
-function Input({
+
+
+export function Input({
   id,
   name,
   type = "text",
@@ -51,8 +79,11 @@ function Input({
   label,
 }) {
   return (
-    <Wrapper>
-      {label && <Label htmlFor={id || name}>{label}</Label>}
+
+    <StyledDiv>
+      {label && <StyledLabel htmlFor={id || name}>{label}</StyledLabel>}
+
+
       <StyledInput
         id={id || name}
         name={name}
@@ -61,8 +92,12 @@ function Input({
         onChange={onChange}
         placeholder={placeholder}
       />
-    </Wrapper>
+
+    </StyledDiv>
+
+    
+
   );
 }
 
-export default Input;
+
