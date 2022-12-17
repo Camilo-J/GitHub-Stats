@@ -16,9 +16,9 @@ function Navbar() {
   };
   return (
     <NavbarC>
-      <NavBarItem icon={optionIcon.profile} />
-      <NavBarItem icon={optionIcon.search} />
-      <NavBarItem icon={optionIcon.favorite} />
+      <NavBarItem to={"profile"} icon={optionIcon.profile} />
+      <NavBarItem to={"/"} icon={optionIcon.search} />
+      <NavBarItem to={"favorites"} icon={optionIcon.favorite} />
     </NavbarC>
   );
 }

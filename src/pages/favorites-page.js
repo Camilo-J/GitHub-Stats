@@ -25,7 +25,6 @@ function FavoritePage({ favorites }) {
           {fav.pokemon_name}
         </PokeCard>
       ))}
-      <Link to="/">Go back to search</Link>
     </Wrapper>
   );
 }

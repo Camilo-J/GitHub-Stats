@@ -59,7 +59,7 @@ function UnauthenticatedApp() {
   return (
     <Wrapper>
       <TotalWrapper>
-        <MainTitle>Welcome to Poke Collection</MainTitle>
+        <MainTitle>Welcome to GitHub Stats</MainTitle>
         {showLogin ? <LoginForm /> : <SignupForm />}
 
         <CustomLink onClick={handleLinkChange}>
