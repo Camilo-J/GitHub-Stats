@@ -3,8 +3,9 @@ import { RiStarFill } from "react-icons/ri";
 import { colors } from "../styles/colors";
 import { typography } from "../styles/typography";
 import FollowersPage from "../pages/followers-page";
+import FollowingPage from "../pages/following-page";
 import { useState } from "react";
-import { getGitProfileFollowers } from "../services/gitapi-service"
+import { getGitProfileFollowers, getGitProfileFollowing } from "../services/gitapi-service"
 
 const FavoriteButton = styled("button")`
   display: flex;
@@ -81,7 +82,6 @@ export default function PokemonData({
   });
   const { status, data: followers, error } = state;
 
-  console.log("followers:", followers);
   function handleFollowers(event) {
     event.preventDefault();
     setShowFollowers(!showFollowers);
@@ -97,6 +97,25 @@ export default function PokemonData({
           status: "error",
           data: null,
           error: "El pokemon no existe! Intenta de nuevo",
+        });
+      });
+  }
+
+  function handleFollowing(event) {
+    event.preventDefault();
+    setShowFollowers(!showFollowers);
+
+    let realuser = user.login
+
+    getGitProfileFollowing(realuser)
+      .then((data) => {
+        setState({ status: "success2", data: data, error: null });
+      })
+      .catch((error) => {
+        setState({
+          status: "error",
+          data: null,
+          error: "No sigue a nadie",
         });
       });
   }
@@ -129,7 +148,8 @@ export default function PokemonData({
             >Followers: {user.followers}</StyledButton>
 >>>>>>> 8a4c9e8 (WIP: Add styles for the cards of each follower, add provitional logic to search page and user data to just render the views we want):src/components/pokemon-data.js
 
-            <p>Following: {user.following}</p>
+            <StyledButton
+              onClick={handleFollowing}>Following: {user.following}</StyledButton>
 
 <<<<<<< HEAD:src/components/user-data.js
       {/* {pokemon.types.map((element) => (
@@ -167,9 +187,15 @@ export default function PokemonData({
             </FavoriteButton>
           </div>
         )
+<<<<<<< HEAD:src/components/user-data.js
         : status === "success" && (<FollowersPage followers={followers} />
         )}
 >>>>>>> 8a4c9e8 (WIP: Add styles for the cards of each follower, add provitional logic to search page and user data to just render the views we want):src/components/pokemon-data.js
+=======
+        : status === "success" ? (<FollowersPage followers={followers} />)
+          : status === "success2" && (<FollowingPage followings={followers} />)
+      }
+>>>>>>> aa6b3f4 (ADD: the correct img for the followers and followings, increment the view per page of the followers and followings):src/components/pokemon-data.js
     </div>
   );
 }

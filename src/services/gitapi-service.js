@@ -1,6 +1,7 @@
 const BASE_URI = "https://api.github.com/users/";
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 export async function getGitProfile(query) {
   let response = await fetch(BASE_URI + query);
 
@@ -25,6 +26,9 @@ export function getRepos(url) {
 }
 
 =======
+=======
+
+>>>>>>> aa6b3f4 (ADD: the correct img for the followers and followings, increment the view per page of the followers and followings)
 export function getGitProfile(query) {
   console.log(BASE_URI + query)
   return fetch(BASE_URI + query).then((response) => response.json());
@@ -32,8 +36,9 @@ export function getGitProfile(query) {
 
 export function getGitProfileFollowers(user) {
   console.log(BASE_URI + user)
-  return fetch(BASE_URI + user + '/followers').then((response) => response.json());
+  return fetch(BASE_URI + user + '/followers?per_page=100').then((response) => response.json());
 }
+<<<<<<< HEAD
 >>>>>>> b9f7e47 (WIP: add a provissional profile page, including a button which render the Folllowers Page without any style)
 // useEffect(() => {
 //   setLoading(true);
@@ -50,3 +55,12 @@ export function getGitProfileFollowers(user) {
 //       setError(error.message);
 //     });
 // }, [query]);
+=======
+// '/followers?per_page=63'
+
+export function getGitProfileFollowing(user) {
+  console.log(BASE_URI + user)
+  return fetch(BASE_URI + user + '/following?per_page=100').then((response) => response.json());
+}
+
+>>>>>>> aa6b3f4 (ADD: the correct img for the followers and followings, increment the view per page of the followers and followings)
