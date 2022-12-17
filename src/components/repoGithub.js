@@ -3,8 +3,9 @@ import Icon from "./Icon";
 import { VscRepoForked } from "react-icons/vsc";
 import { AiOutlineStar } from "react-icons/ai";
 import { BsCircleFill } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
-const ContainRepo = styled("div")`
+const ContainRepo = styled("a")`
   min-width: 330px;
   max-width: 330px;
   padding: 8px 12px;
@@ -14,6 +15,8 @@ const ContainRepo = styled("div")`
   display: flex;
   flex-direction: column;
   gap: 4px;
+  text-decoration: none;
+  color: black;
 `;
 const Icons = styled("div")`
   display: flex;
@@ -35,9 +38,18 @@ const Description = styled("p")`
 
 // BsCircleFill;
 
-const Repo = ({ fork = 0, stars = 0, language = 0, description, name }) => {
+const Repo = ({
+  fork = 0,
+  stars = 0,
+  language = 0,
+  description,
+  name,
+  url,
+}) => {
+  // <Link to={{pathname:`${link}`}} tagert="_blank">View</Link>
+
   return (
-    <ContainRepo>
+    <ContainRepo href={`${url}`} target="_blank">
       <Title>{name}</Title>
       <Description>{description}</Description>
       <Icons>

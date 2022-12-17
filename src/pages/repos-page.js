@@ -23,7 +23,7 @@ const ContainerPage = styled("div")`
 
 const RepoPage = ({ profile }) => {
   const [repos, setRepos] = useState([]);
-
+  console.log(repos);
   useEffect(() => {
     getRepos(profile.repos_url)
       .then((data) => {
@@ -46,6 +46,7 @@ const RepoPage = ({ profile }) => {
               language={repo.language || "none"}
               name={repo.name}
               stars={repo.stargazers_count}
+              url={repo.html_url}
             ></Repo>
           );
         })}
