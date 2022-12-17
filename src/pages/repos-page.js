@@ -23,7 +23,6 @@ const ContainerPage = styled("div")`
 
 const RepoPage = ({ profile }) => {
   const [repos, setRepos] = useState([]);
-  console.log(repos);
   useEffect(() => {
     getRepos(profile.repos_url)
       .then((data) => {

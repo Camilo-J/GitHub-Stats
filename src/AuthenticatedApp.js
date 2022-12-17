@@ -9,6 +9,7 @@ import FavoritePage from "./pages/favorites-page";
 import RepoPage from "./pages/repos-page";
 import FollowersPage from "./pages/followers-page";
 import SearchPage from "./pages/search-page";
+import FollowingPage from "./pages/following-page";
 import {
   createFavorite,
   getFavorites,
@@ -98,6 +99,14 @@ function AuthenticatedApp() {
         <Route path="profile" element={<UpdateForm />} />
 
         <Route path="/users/:username">
+          <Route
+            path="followers"
+            element={<FollowersPage profile={profile}></FollowersPage>}
+          />
+          <Route
+            path="followings"
+            element={<FollowingPage profile={profile}></FollowingPage>}
+          />
           <Route
             path="repos"
             element={<RepoPage profile={profile}></RepoPage>}

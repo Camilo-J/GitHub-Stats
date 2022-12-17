@@ -1,7 +1,9 @@
 import styled from "@emotion/styled";
-import { typography } from "../styles"
-import { BsPersonCircle } from "react-icons/bs";
+import { typography } from "../styles";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { getGitProfileFollowings } from "../services/gitapi-service";
+
 
 const MainTitle = styled.h1`
   display: flex;
@@ -20,16 +22,11 @@ const MainTitle = styled.h1`
 const Wrapper = styled("div")`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 1rem;
 `;
 
-// const FollowerHeader = styled.header`
-//   position: absolute;
-//   width: 303px;
-//   height: 35px;
-//   left: 32px;
-//   top: 16px;
-// `;
 const FollowersContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -37,7 +34,6 @@ const FollowersContainer = styled.div`
   padding: 0px;
   gap: 16px;
 `;
-
 
 const FollowersCard = styled("div")`
   display: flex;
@@ -60,10 +56,16 @@ const PokeImage = styled.img`
   height: 40px;
 `;
 
-function FollowingPage({ followings }) {
+function FollowingPage({ profile }) {
 
-  console.log(followings)
-  console.log("followings", followings)
+  const [followings, setFollowings] = useState([]);
+  useEffect(() => {
+    getGitProfileFollowings(profile.login)
+      .then((data) => {
+        setFollowings(data);
+      })
+      .catch(console.log);
+  }, [profile]);
 
   return (
     <Wrapper>
@@ -84,20 +86,5 @@ function FollowingPage({ followings }) {
     </Wrapper>
   );
 }
-// function FavoritePage({ userInfo }) {
-//   let { user } = useParams();
-//   console.log(user)
-
-//   return (
-//     <Wrapper>
-//       {userInfo.followers.map((userFollowed, index) => (
-//         <FollowersCard value={userFollowed.login} key={`git${index}`}>
-//           {userFollowed.login}
-//         </FollowersCard>
-//       ))}
-//       <Link to="/:user">Go back </Link>
-//     </Wrapper>
-//   );
-// }
 
 export default FollowingPage;

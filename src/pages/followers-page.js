@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
 import { typography } from "../styles"
-import { BsPersonCircle } from "react-icons/bs";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { getGitProfileFollowers } from "../services/gitapi-service"
 
 const MainTitle = styled.h1`
   display: flex;
@@ -20,6 +21,8 @@ const MainTitle = styled.h1`
 const Wrapper = styled("div")`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 1rem;
 `;
 
@@ -55,10 +58,16 @@ const PokeImage = styled.img`
   height: 40px;
 `;
 
-function FollowersPage({ followers }) {
+function FollowersPage({ profile }) {
 
-  console.log(followers)
-  console.log("followers", followers)
+  const [followers, setFollowers] = useState([]);
+  useEffect(() => {
+    getGitProfileFollowers(profile.login)
+      .then((data) => {
+        setFollowers(data);
+      })
+      .catch(console.log);
+  }, [profile]);
 
   return (
     <Wrapper>
@@ -79,20 +88,5 @@ function FollowersPage({ followers }) {
     </Wrapper>
   );
 }
-// function FavoritePage({ userInfo }) {
-//   let { user } = useParams();
-//   console.log(user)
-
-//   return (
-//     <Wrapper>
-//       {userInfo.followers.map((userFollowed, index) => (
-//         <FollowersCard value={userFollowed.login} key={`git${index}`}>
-//           {userFollowed.login}
-//         </FollowersCard>
-//       ))}
-//       <Link to="/:user">Go back </Link>
-//     </Wrapper>
-//   );
-// }
 
 export default FollowersPage;
