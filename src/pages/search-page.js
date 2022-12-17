@@ -31,7 +31,7 @@ const Img = styled("img")`
 
 const MainView = styled("div")``;
 
-function SearchPage({ favorites, onAddFavorite, onRemoveFavorite }) {
+function SearchPage({ favorites, onAddFavorite, onRemoveFavorite, onProfile }) {
   const [query, setQuery] = useState("");
 
   // inactivo - resuelto - error
@@ -42,10 +42,6 @@ function SearchPage({ favorites, onAddFavorite, onRemoveFavorite }) {
   });
   const { status, data: profile, error } = state;
 
-  // const isFavorite = Boolean(
-  // favorites.find((fav) => fav.user_name === profile?.name)
-  // );
-
   useEffect(() => {
     //Get GitApi
     setState({ status: "pending", data: null, error: null });
@@ -53,8 +49,12 @@ function SearchPage({ favorites, onAddFavorite, onRemoveFavorite }) {
     getGitProfile(query)
       .then((data) => {
         console.log(data);
+
         if (data.message == "Not Found") throw new Error("No users...");
         setState({ status: "success", data: data, error: null });
+
+        onProfile(data);
+        setState({ status: "succes", data: data, error: null });
       })
 
       .catch((error) => {
@@ -105,10 +105,12 @@ function SearchPage({ favorites, onAddFavorite, onRemoveFavorite }) {
           // alt="logo"
         // /> */}
       {/* </MainView> */}
+
       {status === "idle" && "No user..."}
       {status === "error" && <p style={{ color: "red" }}>{error.message}</p>}
 
       <Link to="/favorites">Go to Favorites</Link>
+      <Link to={`users/${profile?.login}/repos`}>RepossGit</Link>
     </Container>
   );
 }
