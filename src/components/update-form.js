@@ -62,13 +62,14 @@ const StyledButton = styled.button`
 `;
 
 function UpdateForm() {
-  const { signup, user, logout } = useAuth();
+  const { update, user, logout } = useAuth();
   const [formData, setFormData] = useState({
-    email: "",
+    email: user.email,
     password: "",
-    first_name: "",
-    last_name: "",
+    first_name: user.first_name,
+    last_name: user.last_name,
   });
+  const [updateForm, setUpdateForm] = useState(false);
   const { email, password, first_name, last_name } = formData;
   function handleChange(event) {
     const { name, value } = event.target;
@@ -77,8 +78,8 @@ function UpdateForm() {
 
   function handleSubmit(event) {
     event.preventDefault();
-
-    signup(formData);
+    setUpdateForm(true);
+    update(formData);
   }
 
   return (
@@ -88,7 +89,7 @@ function UpdateForm() {
         <Input
           name="email"
           type="email"
-          value={user.email}
+          value={email}
           onChange={handleChange}
           placeholder="example@mail.com"
           label="Email"
@@ -104,7 +105,7 @@ function UpdateForm() {
         <Input
           name="first_name"
           type="first_name"
-          value={user.first_name}
+          value={first_name}
           onChange={handleChange}
           placeholder="*******"
           label="First Name"
@@ -112,13 +113,14 @@ function UpdateForm() {
         <Input
           name="last_name"
           type="last_name"
-          value={user.last_name}
+          value={last_name}
           onChange={handleChange}
           placeholder="*******"
           label="Last Name"
         />
         <StyledButton type="submit">Update</StyledButton>
       </Form>
+      {updateForm ? <p>user update successful</p> : ""}
       <Link onClick={logout}>Logout</Link>
     </Wrapper>
   );

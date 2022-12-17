@@ -31,7 +31,7 @@ const Img = styled("img")`
 
 const MainView = styled("div")``;
 
-function SearchPage({ favorites, onAddFavorite, onRemoveFavorite }) {
+function SearchPage({ favorites, onAddFavorite, onRemoveFavorite, setProfile }) {
   const [query, setQuery] = useState("");
 
   // inactivo - resuelto - error
@@ -42,16 +42,19 @@ function SearchPage({ favorites, onAddFavorite, onRemoveFavorite }) {
   });
   const { status, data: profile, error } = state;
 
-  const isFavorite = Boolean(
-    favorites.find((fav) => fav.pokemon_name === profile?.name)
-  );
+  // const isFavorite = Boolean(
+  //   favorites.find((fav) => fav.pokemon_name === profile?.name)
+  // );
 
   useEffect(() => {
     //Get GitApi
     getGitProfile(query)
       .then((data) => {
         setState({ status: "succes", data: data, error: null });
-      })
+        setProfile(data);
+        console.log(data);
+      }        
+      )
       .catch(console.log);
 
   }, [query]);

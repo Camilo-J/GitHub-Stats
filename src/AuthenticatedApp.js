@@ -23,24 +23,25 @@ const Div = styled("div")`
 function AuthenticatedApp() {
   const { logout } = useAuth();
   const [favorites, setFavorites] = useState([]);
+  const [profile, setProfile] = useState(null);
 
   useEffect(() => {
     getFavorites().then(setFavorites);
   }, []);
 
-  function handleAddFavorite(pokemon) {
+  function handleAddFavorite() {
     const data = {
-      pokemon_name: pokemon.name,
-      pokemon_id: pokemon.id,
-      pokemon_type: pokemon.types[0].type.name,
-      pokemon_avatar_url:
-        pokemon.sprites.other["official-artwork"].front_default,
+      githubUser_name: profile?.name,
+      githubUser_username: profile?.login,
+      githubUser_avatar_url: profile?.avatar_url,
     };
+
 
     createFavorite(data)
       .then((newFavorite) => setFavorites([...favorites, newFavorite]))
       .catch(console.log);
-  }
+
+    }
 
   function handleRemoveFavorite(pokemon) {
     const favorite = favorites.find(
@@ -58,15 +59,15 @@ function AuthenticatedApp() {
 
   return (
     <Div>
-      <button onClick={logout}>Logout</button>
       <Routes>
         <Route
           path="/"
           element={
             <SearchPage
               favorites={favorites}
-              onAddFavorite={handleAddFavorite}
-              onRemoveFavorite={handleRemoveFavorite}
+              setProfile={setProfile}
+              // onAddFavorite={handleAddFavorite}
+              // onRemoveFavorite={handleRemoveFavorite}
             />
           }
         />
