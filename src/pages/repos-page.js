@@ -10,6 +10,17 @@ const TitleRepo = styled("p")`
   text-align: center;
 `;
 
+const ContainerRepos = styled("div")`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+`;
+
+const ContainerPage = styled("div")`
+  padding: 1rem 0;
+`;
+
 const RepoPage = ({ profile }) => {
   const [repos, setRepos] = useState([]);
 
@@ -22,21 +33,24 @@ const RepoPage = ({ profile }) => {
   }, [profile]);
 
   return (
-    <div>
+    <ContainerPage>
       <TitleRepo>Public Repos ({repos.length})</TitleRepo>
-      {repos.map((repo, index) => {
-        return (
-          <Repo
-            key={index}
-            description={repo.description || "Description"}
-            fork={repo.forks_count}
-            language={repo.language}
-            name={repo.name}
-            stars={repo.stargazers_count}
-          ></Repo>
-        );
-      })}
-    </div>
+
+      <ContainerRepos>
+        {repos.map((repo, index) => {
+          return (
+            <Repo
+              key={index}
+              description={repo.description || "Description"}
+              fork={repo.forks_count}
+              language={repo.language || "none"}
+              name={repo.name}
+              stars={repo.stargazers_count}
+            ></Repo>
+          );
+        })}
+      </ContainerRepos>
+    </ContainerPage>
   );
 };
 
