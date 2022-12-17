@@ -1,12 +1,5 @@
 import { useEffect, useState } from "react";
-
-<<<<<<< HEAD
 import { Input } from "../components/input";
-import { getPokemon } from "../services/pokeapi-service";
-import PokemonData from "../components/pokemon-data";
-=======
-import Input from "../components/input";
->>>>>>> c56cea4daf64dae2a74a8134b15c4fecab3cf375
 import { Link } from "react-router-dom";
 import styled from "@emotion/styled";
 import { getGitProfile } from "../services/gitapi-service";
@@ -37,6 +30,8 @@ const Img = styled("img")`
 
 const MainView = styled("div")``;
 
+
+
 function SearchPage({ favorites, onAddFavorite, onRemoveFavorite }) {
   const [query, setQuery] = useState("");
 
@@ -49,7 +44,7 @@ function SearchPage({ favorites, onAddFavorite, onRemoveFavorite }) {
   const { status, data: profile, error } = state;
 
   const isFavorite = Boolean(
-    favorites.find((fav) => fav.pokemon_name === profile?.name)
+    favorites.find((fav) => fav.user_name === profile?.name)
   );
 
   useEffect(() => {
@@ -68,17 +63,7 @@ function SearchPage({ favorites, onAddFavorite, onRemoveFavorite }) {
     event.preventDefault();
     setState({ status: "pending", data: null, error: null });
 
-    // getPokemon(query)
-    //   .then((data) => {
-    //     setState({ status: "success", data: data, error: null });
-    //   })
-    //   .catch((error) => {
-    //     setState({
-    //       status: "error",
-    //       data: null,
-    //       error: "El pokemon no existe! Intenta de nuevo",
-    //     });
-    //   dx});
+    
   }
 
   return (
@@ -90,7 +75,7 @@ function SearchPage({ favorites, onAddFavorite, onRemoveFavorite }) {
           value={query}
           onChange={(event) => setQuery(event.target.value)}
         />
-        {/* <button type="submit">Search</button> */}
+        <button type="submit">Search</button> 
       </Form>
       {status === "pending" && "Retrieving user..."}
 
