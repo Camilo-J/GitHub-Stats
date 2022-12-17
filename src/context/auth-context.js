@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { createUser, getUser } from "../services/user-service";
+import { createUser, getUser, updateUser } from "../services/user-service";
 import * as auth from "../services/auth-services";
 import { useNavigate } from "react-router-dom";
 
@@ -25,11 +25,16 @@ function AuthProvider(props) {
     createUser(userData).then(setUser).catch(console.log);
   }
 
+  function update(userData) {
+    updateUser(userData).then(setUser).catch(console.log);
+  }
+
   const value = {
     user,
     login,
     logout,
     signup,
+    update,
   };
 
   return <AuthContext.Provider value={value} {...props} />;

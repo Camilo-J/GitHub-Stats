@@ -33,6 +33,7 @@ const Img = styled("img")`
 const MainView = styled("div")``;
 
 function SearchPage({ favorites, onAddFavorite, onRemoveFavorite, onProfile }) {
+
   const [query, setQuery] = useState("");
   const [showProfile, setShowProfile] = useState(true);
   // inactivo - resuelto - error
@@ -41,6 +42,7 @@ function SearchPage({ favorites, onAddFavorite, onRemoveFavorite, onProfile }) {
     data: null,
     error: null,
   });
+
 
   const { status, data: profile, error } = state;
 
@@ -57,6 +59,7 @@ function SearchPage({ favorites, onAddFavorite, onRemoveFavorite, onProfile }) {
         setState({ status: "error", data: null, error: error.message });
       });
   }, [query, onProfile]);
+
 
   function handleSubmit(event) {
     event.preventDefault();
