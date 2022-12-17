@@ -27,8 +27,8 @@ function formatId(id) {
   return id.length < 2 ? `#00${id}` : id.length < 3 ? `#0${id}` : `#${id}`;
 }
 
-export default function PokemonData({
-  pokemon,
+export default function userData({
+  user,
   onAddFavorite,
   onRemoveFavorite,
   isFavorite,
@@ -47,24 +47,26 @@ export default function PokemonData({
 
   return (
     <div>
-      <h2>{pokemon.name}</h2>
+      <h2>{user.name}</h2>
       {/* <p>{formatId(pokemon.id)}</p> */}
-      <p>#{pokemon.id.toString().padStart(3, "0")}</p>
+      <p>#{user.id.toString().padStart(3, "0")}</p>
       <PokeImage
-        src={pokemon.sprites.other["official-artwork"].front_default}
-        alt={pokemon.name}
+        src={user.sprites.other["official-artwork"].front_default}
+        alt={user.name}
       />
 
-      {pokemon.types.map((element) => (
+      {user.types.map((element) => (
         <p key={element.slot}>{element.type.name}</p>
       ))}
 
-      <p>Weight: {pokemon.weight / 10} kg</p>
-      <p>Height: {pokemon.height / 10} m</p>
+      <p>followers: {user.followers / 65} k</p>
+      <p>followings: {user.followings / 171} </p>
+      <p>public repos: {user.publicRepos / 249}</p>
+      <p>public gists: {user.publicGists / 72}</p>
 
       <FavoriteButton
         onClick={() =>
-          isFavorite ? onRemoveFavorite(pokemon) : onAddFavorite(pokemon)
+          isFavorite ? onRemoveFavorite(user) : onAddFavorite(user)
         }
       >
         {isFavorite ? favoriteContent : regularContent}

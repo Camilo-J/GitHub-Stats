@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-
-import Input from "../components/input";
+import { Input } from "../components/input";
 import { Link } from "react-router-dom";
 import styled from "@emotion/styled";
 import { getGitProfile } from "../services/gitapi-service";
@@ -31,6 +30,8 @@ const Img = styled("img")`
 
 const MainView = styled("div")``;
 
+
+
 function SearchPage({ favorites, onAddFavorite, onRemoveFavorite }) {
   const [query, setQuery] = useState("");
 
@@ -39,69 +40,75 @@ function SearchPage({ favorites, onAddFavorite, onRemoveFavorite }) {
     status: "idle", // success - error - pending
     data: null,
     error: null,
-  });
+   });
   const { status, data: profile, error } = state;
 
-  const isFavorite = Boolean(
-    favorites.find((fav) => fav.pokemon_name === profile?.name)
-  );
+  // const isFavorite = Boolean(
+    // favorites.find((fav) => fav.user_name === profile?.name)
+  // );
 
   useEffect(() => {
-    //Get GitApi
+    // Get GitApi
+    // setState({ status: "pending", data: null, error: null });
     getGitProfile(query)
       .then((data) => {
-        setState({ status: "succes", data: data, error: null });
+        console.log(data)
+        if (data.message == "Not Found") throw new Error("No users...") 
+        setState({ status: "success", data: data, error: null });
+          
       })
-      .catch(console.log);
+      .catch((error)=> {
+        console.log(error.messsage)
+        setState({ status: "error", data: null, error: error.message });
+      });
 
   }, [query]);
 
   function handleSubmit(event) {
     event.preventDefault();
     setState({ status: "pending", data: null, error: null });
-
-    // getPokemon(query)
-    //   .then((data) => {
-    //     setState({ status: "success", data: data, error: null });
-    //   })
-    //   .catch((error) => {
-    //     setState({
-    //       status: "error",
-    //       data: null,
-    //       error: "El pokemon no existe! Intenta de nuevo",
-    //     });
-    //   dx});
+    console.log(event.target.value)
+    
   }
 
   return (
     <Container>
-      <Form onSubmit={handleSubmit}>
-        <Input
+      <Form> 
+        <Input 
           name="query"
           placeholder="username"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
-        />
-        {/* <button type="submit">Search</button> */}
+        /> 
+        {/* <button type="submit">Search</button>   */}
       </Form>
+      
       {status === "pending" && "Retrieving user..."}
 
-      {/* {status === "success" && (
-        <PokemonData
-          pokemon={pokemon}
-          onAddFavorite={onAddFavorite}
-          onRemoveFavorite={onRemoveFavorite}
-          isFavorite={isFavorite}
-        />
-      )} */}
-      <MainView>
-        <Img
-          src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
-          alt="logo"
-        />
-      </MainView>
-      {status === "idle" && "No user..."}
-      {status === "error" && <p style={{ color: "red" }}>{error}</p>}
+      {status === "success" && (
+        // <PokemonData
+        //   pokemon={pokemon}
+        //   onAddFavorite={onAddFavorite}
+        //   onRemoveFavorite={onRemoveFavorite}
+        //   isFavorite={isFavorite}
+        // />
+        <div>
+          <h1> {profile?.name} </h1>
+          <img src={profile.avatar_url}/> 
+          <p>followers: {profile.followers}</p>
+          <p>followings: {profile.following}</p>
+          <p>public repos: {profile.public_repos}</p>
+          <p>public gists: {profile.public_gists}</p>
+        </div>
+      )}
+      {/* <MainView> */}
+        {/* <Img */}
+          {/* // src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
+          // alt="logo"
+        // /> */}
+      {/* </MainView> */}
+      {status === "idle" && "No user..."} 
+      {status === "error" && <p style={{ color: "red" }}>{error.message}</p>}
     </Container>
   );
 }
