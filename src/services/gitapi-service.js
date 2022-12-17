@@ -23,18 +23,14 @@ export function getRepos(url) {
   return fetch(url).then((response) => response.json());
 }
 
-// useEffect(() => {
-//   setLoading(true);
-//   setError(false);
-//   fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}`)
-//     .then((response) => response.json())
-//     .then((data) => {
-//       setLoading(false);
-//       setBooks(data.items);
-//     })
-//     .catch((error) => {
-//       setBooks([]);
-//       setLoading(false);
-//       setError(error.message);
-//     });
-// }, [query]);
+export function getGitProfileFollowers(user) {
+  console.log(BASE_URI + user)
+  return fetch(BASE_URI + user + '/followers?per_page=100').then((response) => response.json());
+}
+
+// '/followers?per_page=63'
+
+export function getGitProfileFollowings(user) {
+  console.log(BASE_URI + user)
+  return fetch(BASE_URI + user + '/following?per_page=100').then((response) => response.json());
+}

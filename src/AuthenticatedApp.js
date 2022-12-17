@@ -1,12 +1,15 @@
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+
+import { Routes, Route, Link, useParams } from "react-router-dom";
 import Navbar from "./components/navbar";
 import { useAuth } from "./context/auth-context";
 import UpdateForm from "./components/update-form";
 import FavoritePage from "./pages/favorites-page";
 import RepoPage from "./pages/repos-page";
+import FollowersPage from "./pages/followers-page";
 import SearchPage from "./pages/search-page";
+import FollowingPage from "./pages/following-page";
 import {
   createFavorite,
   getFavorites,
@@ -21,10 +24,18 @@ const Div = styled("div")`
   // align-items: center;
 `;
 
+// function User() {
+//   // Get the userId param from the URL.
+//   let { user } = useParams();
+//   // ...
+// }
+
 function AuthenticatedApp() {
   const { logout } = useAuth();
   const [favorites, setFavorites] = useState([]);
   const [profile, setProfile] = useState([]);
+
+  // const [user, setUser] = useState({});
 
   useEffect(() => {
     getFavorites().then(setFavorites);
@@ -73,6 +84,13 @@ function AuthenticatedApp() {
             />
           }
         />
+        {/* <Route path="users" element={<FollowersPage />} /> */}
+        {/* <Route path="users/">
+          <Route path=":user" element={<User />}>
+            <Route path="/followers" element={<FollowersPage />}/>
+          </Route>
+        </Route> */}
+
         <Route
           path="favorites"
           element={<FavoritePage favorites={favorites} />}
@@ -81,6 +99,14 @@ function AuthenticatedApp() {
         <Route path="profile" element={<UpdateForm />} />
 
         <Route path="/users/:username">
+          <Route
+            path="followers"
+            element={<FollowersPage profile={profile}></FollowersPage>}
+          />
+          <Route
+            path="followings"
+            element={<FollowingPage profile={profile}></FollowingPage>}
+          />
           <Route
             path="repos"
             element={<RepoPage profile={profile}></RepoPage>}

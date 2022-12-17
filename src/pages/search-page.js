@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import styled from "@emotion/styled";
 import { getGitProfile } from "../services/gitapi-service";
 import Repo from "../components/repoGithub";
+import ProfileData from "./profile-data";
 
 const Container = styled("div")`
   display: flex;
@@ -33,7 +34,7 @@ const MainView = styled("div")``;
 
 function SearchPage({ favorites, onAddFavorite, onRemoveFavorite, onProfile }) {
   const [query, setQuery] = useState("");
-
+  const [showProfile, setShowProfile] = useState(true);
   // inactivo - resuelto - error
   const [state, setState] = useState({
     status: "idle", // success - error - pending
@@ -59,8 +60,21 @@ function SearchPage({ favorites, onAddFavorite, onRemoveFavorite, onProfile }) {
 
   function handleSubmit(event) {
     event.preventDefault();
+    setShowProfile(!showProfile);
     setState({ status: "pending", data: null, error: null });
-    console.log(event.target.value);
+
+    getGitProfile(query)
+      .then((data) => {
+        setState({ status: "success", data: data, error: null });
+      })
+      .catch((error) => {
+        setState({
+          status: "error",
+          data: null,
+          error: "El pokemon no existe! Intenta de nuevo",
+        });
+      });
+
   }
 
   return (
@@ -78,20 +92,7 @@ function SearchPage({ favorites, onAddFavorite, onRemoveFavorite, onProfile }) {
       {status === "pending" && "Retrieving user..."}
 
       {status === "success" && (
-        // <PokemonData
-        //   pokemon={pokemon}
-        //   onAddFavorite={onAddFavorite}
-        //   onRemoveFavorite={onRemoveFavorite}
-        //   isFavorite={isFavorite}
-        // />
-        <div>
-          <h1> {profile?.name} </h1>
-          <img src={profile.avatar_url} alt={"Git user"} />
-          <p>followers: {profile.followers}</p>
-          <p>followings: {profile.following}</p>
-          <p>public repos: {profile.public_repos}</p>
-          <p>public gists: {profile.public_gists}</p>
-        </div>
+        <ProfileData profile={profile} />
       )}
       {/* <MainView> */}
       {/* <Img */}
@@ -100,6 +101,14 @@ function SearchPage({ favorites, onAddFavorite, onRemoveFavorite, onProfile }) {
         // /> */}
       {/* </MainView> */}
 
+      {/* <PokemonData
+        user={profile}
+        onAddFavorite={onAddFavorite}
+        onRemoveFavorite={onRemoveFavorite}
+        isFavorite={isFavorite}
+      /> */}
+
+
       {status === "idle" && "No user..."}
 
       {status === "error" && query !== "" && (
@@ -107,6 +116,8 @@ function SearchPage({ favorites, onAddFavorite, onRemoveFavorite, onProfile }) {
       )}
 
       <Link to="/favorites">Go to Favorites</Link>
+      <Link to={`users/${profile?.login}/followers`}>Followers</Link>
+      <Link to={`users/${profile?.login}/followings`}>Followings</Link>
       <Link to={`users/${profile?.login}/repos`}>RepossGit</Link>
     </Container>
   );
