@@ -19,22 +19,24 @@ export async function getGitProfile(query) {
   return data;
 }
 
-export function getRepos(url) {
-  return fetch(url).then((response) => response.json());
+export function getRepos(url, page) {
+  return fetch(url + `?per_page=7&page=${page}`).then((response) =>
+    response.json()
+  );
 }
 
-export function getGitProfileFollowers(user) {
+export function getGitProfileFollowers(user, page) {
   console.log(BASE_URI + user);
-  return fetch(BASE_URI + user + "/followers?per_page=7&page=1").then(
+  return fetch(BASE_URI + user + `/followers?per_page=7&page=${page}`).then(
     (response) => response.json()
   );
 }
 
 // '/followers?per_page=63'
 
-export function getGitProfileFollowings(user) {
+export function getGitProfileFollowings(user, page) {
   console.log(BASE_URI + user);
-  return fetch(BASE_URI + user + "/following?per_page=100").then((response) =>
-    response.json()
+  return fetch(BASE_URI + user + `/following?per_page=7&page=${page}`).then(
+    (response) => response.json()
   );
 }

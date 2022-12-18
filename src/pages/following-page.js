@@ -5,6 +5,9 @@ import { Link } from "react-router-dom";
 import { typography } from "../styles";
 import { getGitProfileFollowings } from "../services/gitapi-service";
 
+import Image from "../assets/Vector.png";
+import Image1 from "../assets/Vector1.png";
+
 const MainTitle = styled.h1`
   display: flex;
 
@@ -56,19 +59,77 @@ const PokeImage = styled.img`
   height: 40px;
 `;
 
+const Pagination = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 8px;
+  gap: 8px;
+
+  width: 202px;
+  height: 30px;
+  svg {
+    font-size: 4rem;
+  }
+`;
+
+const PagButton = styled.button`
+  all: unset;
+  text-align: center;
+  color: ${({ current, children }) =>
+    current === children ? "#fff" : "#00000"};
+  display: flex;
+  flex-direction: column;
+
+  padding: 1px 8px;
+  gap: 10px;
+
+  background: ${({ current, children }) =>
+    current === children ? "#2d9cdb" : ""};
+  border-radius: 50px;
+`;
+
 function FollowingPage({ profile }) {
   const [followings, setFollowings] = useState([]);
+  const [page, setPage] = useState(1);
+
+  const pageNumber = Math.ceil(profile.followers / 7);
+
+  function handleDecresePage() {
+    if (page === 1) return;
+
+    const newPage = page - 1;
+    setPage(newPage);
+  }
+
+  function handleIncresePage() {
+    if (page === pageNumber) return;
+    const newPage = page + 1;
+    setPage(newPage);
+  }
+
   useEffect(() => {
-    getGitProfileFollowings(profile.login)
+    getGitProfileFollowings(profile.login, page)
       .then((data) => {
         setFollowings(data);
       })
       .catch(console.log);
-  }, [profile]);
+  }, [profile, page]);
 
   return (
     <Wrapper>
       <MainTitle>Followings ({profile.following})</MainTitle>
+
+      <Pagination>
+        <img src={Image} alt="" onClick={handleDecresePage}></img>
+        {[...Array(pageNumber)].map((x, index) => (
+          <PagButton key={index} current={page}>
+            {index + 1}
+          </PagButton>
+        ))}
+        <img src={Image1} alt="" onClick={handleIncresePage}></img>
+      </Pagination>
 
       {followings.map((following, index) => (
         <FollowersContainer key={index}>
