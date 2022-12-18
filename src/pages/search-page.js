@@ -89,7 +89,9 @@ function SearchPage({ favorites, onAddFavorite, onRemoveFavorite, onProfile }) {
 
       {status === "pending" && "Retrieving user..."}
 
-      {status === "success" && <ProfileData profile={profile} />}
+      {status === "success" && query !== "" && (
+        <ProfileData profile={profile} />
+      )}
 
       {profile ? (
         ""
