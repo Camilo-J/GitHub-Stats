@@ -141,7 +141,7 @@ function FollowersPage({ profile }) {
           </FollowersCard>
         </FollowersContainer>
       ))}
-      <Link to="/">Go back </Link>
+      <Link to="/users/:username">Go back </Link>
     </Wrapper>
   );
 }
