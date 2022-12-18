@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
+import CardIcon from "../components/CardIcon";
+import CardIconFavorite from "../components/CardIconfavorite";
 
 const typeColors = {
   grass: "#74CB48",
@@ -20,11 +22,7 @@ const PokeCard = styled("div")`
 function FavoritePage({ favorites }) {
   return (
     <Wrapper>
-      {favorites.map((fav, index) => (
-        <PokeCard type={fav.pokemon_type} key={`pok${index}`}>
-          {fav.pokemon_name}
-        </PokeCard>
-      ))}
+      {favorites.map((fav) => <CardIconFavorite username={fav.username} name={fav.name} avatar={fav.avatar_url}></CardIconFavorite>)}
     </Wrapper>
   );
 }
