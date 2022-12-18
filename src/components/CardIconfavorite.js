@@ -3,12 +3,17 @@ import { Link } from "react-router-dom";
 
 const ContainerCard = styled("div")`
   background: #ffffff;
-  max-width: 140px;
+  font-family: 'Source Code Pro';
+  font-style: normal;
+  font-weight: 400;
+  border-radius: 4px;
+  width: 300px;
+  height: 56px;
   padding: 18px 10px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  gap: 1px;
+  gap: 10px;
   text-decoration: none;
   color: #000000;
   svg {
@@ -31,12 +36,14 @@ const Text = styled("p")`
   line-height: 20.11px;
 `;
 
-const CardIconFavorite = ({ username, name, avatar }) => {
+const CardIconFavorite = ({ username, name, avatar, icon }) => {
   return (
     <ContainerCard>
-      {username}
-      <Amount>{name}</Amount>
-      <img src={`${avatar}`}></img>
+      <img style={{width:"40px", borderRadius:"50%"}} src={`${avatar}`}></img>
+      <div style={{height:"35px", width:"185.13px", padding:"0px"}}><h3 style={{fontSize:"16px"}}>{name}</h3>
+      <p style={{fontSize:"12px"}}>{username}</p>
+      </div>
+      {icon}
     </ContainerCard>
   );
 };
