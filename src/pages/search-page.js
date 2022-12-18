@@ -45,10 +45,11 @@ function SearchPage({ favorites, onAddFavorite, onRemoveFavorite, onProfile }) {
 
   useEffect(() => {
     //Get GitApi
+    if (query === "") return;
     setState({ status: "pending", data: null, error: null });
-
     getGitProfile(query)
       .then((data) => {
+        console.log(data);
         onProfile(data);
         setState({ status: "success", data: data, error: null });
       })
@@ -57,23 +58,23 @@ function SearchPage({ favorites, onAddFavorite, onRemoveFavorite, onProfile }) {
       });
   }, [query, onProfile]);
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    setShowProfile(!showProfile);
-    setState({ status: "pending", data: null, error: null });
+  // function handleSubmit(event) {
+  //   event.preventDefault();
+  //   setShowProfile(!showProfile);
+  //   setState({ status: "pending", data: null, error: null });
 
-    getGitProfile(query)
-      .then((data) => {
-        setState({ status: "success", data: data, error: null });
-      })
-      .catch((error) => {
-        setState({
-          status: "error",
-          data: null,
-          error: "El pokemon no existe! Intenta de nuevo",
-        });
-      });
-  }
+  //   getGitProfile(query)
+  //     .then((data) => {
+  //       setState({ status: "success", data: data, error: null });
+  //     })
+  //     .catch((error) => {
+  //       setState({
+  //         status: "error",
+  //         data: null,
+  //         error: "El pokemon no existe! Intenta de nuevo",
+  //       });
+  //     });
+  // }
 
   return (
     <Container>
@@ -104,11 +105,6 @@ function SearchPage({ favorites, onAddFavorite, onRemoveFavorite, onProfile }) {
       {status === "error" && query !== "" && (
         <p style={{ color: "red" }}>{error.message}</p>
       )}
-
-      {/* <Link to="/favorites">Go to Favorites</Link>
-      <Link to={`users/${profile?.login}/followers`}>Followers</Link>
-      <Link to={`users/${profile?.login}/followings`}>Followings</Link>
-      <Link to={`users/${profile?.login}/repos`}>RepossGit</Link> */}
     </Container>
   );
 }

@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/navbar";
-import { useAuth } from "./context/auth-context";
 import UpdateForm from "./components/update-form";
 import FavoritePage from "./pages/favorites-page";
 import RepoPage from "./pages/repos-page";
@@ -25,7 +24,6 @@ const Div = styled("div")`
 `;
 
 function AuthenticatedApp() {
-  const { logout } = useAuth();
   const [favorites, setFavorites] = useState([]);
 
   const [profile, setProfile] = useState(null);
