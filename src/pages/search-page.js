@@ -50,7 +50,6 @@ function SearchPage({ favorites, onAddFavorite, onRemoveFavorite, onProfile }) {
       });
   }, [query, onProfile, setState]);
 
-  console.log(profile);
   return (
     <Container>
       <Form>

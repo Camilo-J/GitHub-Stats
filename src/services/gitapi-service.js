@@ -26,7 +26,6 @@ export function getRepos(url, page) {
 }
 
 export function getGitProfileFollowers(user, page) {
-  console.log(BASE_URI + user);
   return fetch(BASE_URI + user + `/followers?per_page=7&page=${page}`).then(
     (response) => response.json()
   );
@@ -35,7 +34,6 @@ export function getGitProfileFollowers(user, page) {
 // '/followers?per_page=63'
 
 export function getGitProfileFollowings(user, page) {
-  console.log(BASE_URI + user);
   return fetch(BASE_URI + user + `/following?per_page=7&page=${page}`).then(
     (response) => response.json()
   );
