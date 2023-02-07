@@ -32,11 +32,11 @@ function AuthenticatedApp() {
     getFavorites().then(setFavorites);
   }, []);
 
-  function handleAddFavorite() {
+  function handleAddFavorite(profile) {
     const data = {
-      githubUser_name: profile?.name,
-      githubUser_username: profile?.login,
-      githubUser_avatar_url: profile?.avatar_url,
+      name: profile.name,
+      username: profile.login,
+      avatar_url: profile.avatar_url,
     };
 
     createFavorite(data)
@@ -44,14 +44,12 @@ function AuthenticatedApp() {
       .catch(console.log);
   }
 
-  function handleRemoveFavorite(pokemon) {
-    const favorite = favorites.find(
-      (fav) => fav.pokemon_name === pokemon?.name
-    );
+  function handleRemoveFavorite(profile) {
+    const favorite = favorites.find((fav) => fav.username === profile?.login);
 
     removeFavorite(favorite.id).then(() => {
       const newFavorites = favorites.filter(
-        (fav) => fav.pokemon_name !== pokemon.name
+        (fav) => fav.username !== profile?.login
       );
 
       setFavorites(newFavorites);

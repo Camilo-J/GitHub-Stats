@@ -5,12 +5,6 @@ import { FaUsers } from "react-icons/fa";
 import { RiUserHeartFill } from "react-icons/ri";
 import { RiBookMarkFill } from "react-icons/ri";
 import CardIcon from "../components/CardIcon";
-import {
-  createFavorite,
-  getFavorites,
-  removeFavorite,
-} from "../services/favorites-service";
-import { useEffect, useState } from "react";
 
 const Container = styled("div")`
   display: flex;
@@ -68,9 +62,12 @@ const FavoriteButton = styled.button`
   cursor: pointer;
 `;
 
-export default function ProfileData({ profile }) {
-  const [favorites, setFavorites] = useState([]);
-
+export default function ProfileData({
+  profile,
+  favorites,
+  onAddFavorite,
+  onRemoveFavorite,
+}) {
   const regularContent = (
     <>
       <RiStarLine color={"#828282"} style={{ fontSize: "1.3rem" }} />
@@ -83,36 +80,8 @@ export default function ProfileData({ profile }) {
     </>
   );
 
-  useEffect(() => {
-    getFavorites().then(setFavorites);
-  }, []);
-
-  function handleAddFavorite(profile) {
-    const data = {
-      name: profile.name,
-      username: profile.login,
-      avatar_url: profile.avatar_url,
-    };
-
-    createFavorite(data)
-      .then((newFavorite) => setFavorites([...favorites, newFavorite]))
-      .catch(console.log);
-  }
-
-  function handleRemoveFavorite(profile) {
-    const favorite = favorites.find((fav) => fav.username === profile?.login);
-
-    removeFavorite(favorite.id).then(() => {
-      const newFavorites = favorites.filter(
-        (fav) => fav.username !== profile?.login
-      );
-
-      setFavorites(newFavorites);
-    });
-  }
-
   const isFavorite = Boolean(
-    favorites.find((fav) => fav.username === profile?.login)
+    favorites?.find((fav) => fav.username === profile?.login)
   );
 
   return (
@@ -122,9 +91,7 @@ export default function ProfileData({ profile }) {
         <UserName>{profile?.name}</UserName>
         <FavoriteButton
           onClick={() =>
-            isFavorite
-              ? handleRemoveFavorite(profile)
-              : handleAddFavorite(profile)
+            isFavorite ? onRemoveFavorite(profile) : onAddFavorite(profile)
           }
         >
           {isFavorite ? favoriteContent : regularContent}
