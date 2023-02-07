@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import { Input } from "../components/input";
 import { getGitProfile } from "../services/gitapi-service";
 import ProfileData from "./profile-data";
+import { useAuth } from "../context/auth-context";
 
 const Container = styled("div")`
   display: flex;
@@ -29,17 +30,9 @@ const Img = styled("img")`
   height: 7.5rem;
 `;
 
-const MainView = styled("div")``;
-
 function SearchPage({ favorites, onAddFavorite, onRemoveFavorite, onProfile }) {
   const [query, setQuery] = useState("");
-  const [showProfile, setShowProfile] = useState(true);
-  // inactivo - resuelto - error
-  const [state, setState] = useState({
-    status: "idle", // success - error - pending
-    data: null,
-    error: null,
-  });
+  const { state, setState } = useAuth();
 
   const { status, data: profile, error } = state;
 
@@ -49,33 +42,15 @@ function SearchPage({ favorites, onAddFavorite, onRemoveFavorite, onProfile }) {
     setState({ status: "pending", data: null, error: null });
     getGitProfile(query)
       .then((data) => {
-        console.log(data);
         onProfile(data);
         setState({ status: "success", data: data, error: null });
       })
       .catch((error) => {
         setState({ status: "error", data: null, error: error.message });
       });
-  }, [query, onProfile]);
+  }, [query, onProfile, setState]);
 
-  // function handleSubmit(event) {
-  //   event.preventDefault();
-  //   setShowProfile(!showProfile);
-  //   setState({ status: "pending", data: null, error: null });
-
-  //   getGitProfile(query)
-  //     .then((data) => {
-  //       setState({ status: "success", data: data, error: null });
-  //     })
-  //     .catch((error) => {
-  //       setState({
-  //         status: "error",
-  //         data: null,
-  //         error: "El pokemon no existe! Intenta de nuevo",
-  //       });
-  //     });
-  // }
-
+  console.log(profile);
   return (
     <Container>
       <Form>
@@ -90,10 +65,15 @@ function SearchPage({ favorites, onAddFavorite, onRemoveFavorite, onProfile }) {
       {status === "pending" && "Retrieving user..."}
 
       {status === "success" && query !== "" && (
-        <ProfileData profile={profile} />
+        <ProfileData
+          profile={profile}
+          favorites={favorites}
+          onAddFavorite={onAddFavorite}
+          onRemoveFavorite={onRemoveFavorite}
+        />
       )}
 
-      {profile ? (
+      {profile && query !== "" ? (
         ""
       ) : (
         <Img
