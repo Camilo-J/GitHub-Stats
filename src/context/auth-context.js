@@ -8,6 +8,13 @@ const AuthContext = createContext();
 function AuthProvider(props) {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
+
+  const [state, setState] = useState({
+    status: "idle", // success - error - pending
+    data: null,
+    error: null,
+  });
+
   useEffect(() => {
     getUser().then(setUser).catch(console.log);
   }, []);
@@ -17,8 +24,10 @@ function AuthProvider(props) {
   }
 
   function logout() {
-    auth.logout().then(() => {setUser(null);
-    navigate("/")});
+    auth.logout().then(() => {
+      setUser(null);
+      navigate("/");
+    });
   }
 
   function signup(userData) {
@@ -35,6 +44,8 @@ function AuthProvider(props) {
     logout,
     signup,
     update,
+    state,
+    setState,
   };
 
   return <AuthContext.Provider value={value} {...props} />;

@@ -78,15 +78,14 @@ function FavoritePage({ favorites }) {
     setPage(newPage);
   }
 
-  const array1 = favorites;
   let category = 0;
-  let groupByCategory = array1.reduce((group, product, index) => {
+  let groupByCategory = favorites.reduce((accu, product, index) => {
     if (index % 7 === 0) {
       category++;
     }
-    group[category] = group[category] ?? [];
-    group[category].push(product);
-    return group;
+    accu[category] = accu[category] ?? [];
+    accu[category].push(product);
+    return accu;
   }, {});
 
   return (
