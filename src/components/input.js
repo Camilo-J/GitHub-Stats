@@ -1,14 +1,15 @@
 import styled from "@emotion/styled";
-import { colors, typography } from "../styles";
+import { colors } from "../styles";
 
 export const StyledButton = styled("button")`
   border: none;
+  color: white;
   width: 80px;
   height: 36px;
-  background: #2D9CDB;
+  background: #2d9cdb;
   box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
-  margin: 0 auto 0 auto
+  margin: 0 auto 0 auto;
 `;
 
 export const StyledDivForm = styled("div")`
@@ -16,7 +17,6 @@ export const StyledDivForm = styled("div")`
   justify-content: center;
   align-items: center;
 `;
-
 
 const StyledLabel = styled("label")`
   text-align: left;
@@ -26,17 +26,14 @@ const StyledDiv = styled("div")`
   display: flex;
   flex-direction: column;
   width: 213px;
- 
 `;
 
 const StyledInput = styled("input")`
-
   border: none;
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.25);
   align-items: center;
 
-  
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -46,10 +43,10 @@ const StyledInput = styled("input")`
   width: 213px;
   height: 28px;
 
-  border: 1px solid #D3D3D3;
+  border: 1px solid #d3d3d3;
   justify-content: center;
 
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.25);
 
   border-radius: 4px;
@@ -57,17 +54,6 @@ const StyledInput = styled("input")`
     color: ${colors.gray.light};
   }
 `;
-
-
-
-const Label = styled.label`
-  display: flex;
-  width: 100%;
-  ${typography.text.md};
-  margin: 0;
-`;
-
-
 
 export function Input({
   id,
@@ -79,10 +65,8 @@ export function Input({
   label,
 }) {
   return (
-
     <StyledDiv>
       {label && <StyledLabel htmlFor={id || name}>{label}</StyledLabel>}
-
 
       <StyledInput
         id={id || name}
@@ -92,12 +76,6 @@ export function Input({
         onChange={onChange}
         placeholder={placeholder}
       />
-
     </StyledDiv>
-
-    
-
   );
 }
-
-

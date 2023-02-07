@@ -1,9 +1,6 @@
-import { findByLabelText } from "@testing-library/react";
 import { useState } from "react";
 import { useAuth } from "../context/auth-context";
 import { Input, StyledButton, StyledDivForm } from "./input";
-
- 
 
 function LoginForm() {
   const { login } = useAuth();
@@ -26,7 +23,17 @@ function LoginForm() {
 
   return (
     <StyledDivForm>
-      <form style={{display: "flex", flexDirection: "column", gap: "32px", marginTop: "96px", justifyContent: "center", alignItems: "center",}} onSubmit={handleSubmit}>
+      <form
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "32px",
+          marginTop: "96px",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+        onSubmit={handleSubmit}
+      >
         <Input
           name="email"
           type="email"

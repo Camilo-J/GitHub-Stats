@@ -1,8 +1,8 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
-import { colors, typography } from "../styles"
+import { colors, typography } from "../styles";
 import { useAuth } from "../context/auth-context";
-import {Input} from "./input";
+import { Input } from "./input";
 
 const Form = styled.form`
   display: flex;
@@ -11,9 +11,6 @@ const Form = styled.form`
   align-items: center;
   padding: 0px;
   gap: 32px;
-
-  margin-bottom: 24px;
-
   width: 213px;
   height: 424px;
 `;
@@ -24,7 +21,6 @@ const Wrapper = styled.div`
   align-items: center;
   padding: 0px;
   gap: 36px;
-
   width: 213px;
   height: 424px;
 `;
