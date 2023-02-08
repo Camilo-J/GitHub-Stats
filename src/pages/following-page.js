@@ -117,13 +117,23 @@ function FollowingPage({ profile }) {
       <MainTitle>Followings ({profile.following})</MainTitle>
 
       <Pagination>
-        <img src={Image} alt="" onClick={handleDecresePage}></img>
+        <img
+          src={Image}
+          alt=""
+          onClick={handleDecresePage}
+          style={{ cursor: "pointer" }}
+        />
         {[...Array(pageNumber)].map((x, index) => (
           <PagButton key={index} current={page}>
             {index + 1}
           </PagButton>
         ))}
-        <img src={Image1} alt="" onClick={handleIncresePage}></img>
+        <img
+          src={Image1}
+          alt=""
+          onClick={handleIncresePage}
+          style={{ cursor: "pointer" }}
+        />
       </Pagination>
 
       <FollowersContainer>
@@ -134,7 +144,17 @@ function FollowingPage({ profile }) {
           </FollowersCard>
         ))}
       </FollowersContainer>
-      <Link to="/">Go back </Link>
+      <Link
+        style={{
+          textDecoration: "none",
+          color: "#2D9CDB",
+          fontWeight: "500",
+          fontSize: "1.1rem",
+        }}
+        to="/"
+      >
+        Go back{" "}
+      </Link>
     </Wrapper>
   );
 }

@@ -41,6 +41,7 @@ const Pagination = styled.div`
   height: 30px;
   svg {
     font-size: 4rem;
+    cursor: pointer;
   }
 `;
 
@@ -51,10 +52,8 @@ const PagButton = styled.button`
     current === children ? "#fff" : "#00000"};
   display: flex;
   flex-direction: column;
-
   padding: 1px 8px;
   gap: 10px;
-
   background: ${({ current, children }) =>
     current === children ? "#2d9cdb" : ""};
   border-radius: 50px;
@@ -93,13 +92,23 @@ function FavoritePage({ favorites }) {
       <MainTitle>Favorites ({favorites.length})</MainTitle>
 
       <Pagination>
-        <img src={Image} alt="" onClick={handleDecresePage}></img>
+        <img
+          src={Image}
+          alt=""
+          onClick={handleDecresePage}
+          style={{ cursor: "pointer" }}
+        />
         {[...Array(pageNumber)].map((x, index) => (
           <PagButton key={index} current={page}>
             {index + 1}
           </PagButton>
         ))}
-        <img src={Image1} alt="" onClick={handleIncresePage}></img>
+        <img
+          src={Image1}
+          alt=""
+          onClick={handleIncresePage}
+          style={{ cursor: "pointer" }}
+        />
       </Pagination>
 
       {groupByCategory[`${page}`]?.map((fav, index) => (
