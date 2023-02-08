@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { Global } from "@emotion/react";
 import { BrowserRouter } from "react-router-dom";
-
+import "./index.css";
 import App from "./App";
 import { global, reset } from "./styles";
 import { AuthProvider } from "./context/auth-context";

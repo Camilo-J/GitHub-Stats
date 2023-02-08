@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
-import { colors, typography } from "../styles"
+import { colors, typography } from "../styles";
 import { useAuth } from "../context/auth-context";
 import { Input } from "./input";
 import { Link } from "react-router-dom";
@@ -31,14 +31,11 @@ const Wrapper = styled.div`
 `;
 
 const Title = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  margin-top: 2rem;
   padding: 0px;
   gap: 36px;
-
-  width: 213px;
-  height: 424px;
+  font-size: 32px;
+  font-weight: 400;
 `;
 
 const StyledButton = styled.button`
@@ -121,7 +118,17 @@ function UpdateForm() {
         <StyledButton type="submit">Update</StyledButton>
       </Form>
       {updateForm ? <p>user update successful</p> : ""}
-      <Link onClick={logout}>Logout</Link>
+      <Link
+        style={{
+          textDecoration: "none",
+          color: "#2D9CDB",
+          fontWeight: "500",
+          fontSize: "1.1rem",
+        }}
+        onClick={logout}
+      >
+        Logout
+      </Link>
     </Wrapper>
   );
 }
