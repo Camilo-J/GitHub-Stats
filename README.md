@@ -2,27 +2,24 @@
 
 Explore the main statistics of the Github community and store your favorite users for future reference using Github Stats app.
 
+Design: [here](https://www.figma.com/file/C8B1T1HFdUI2kaFGYwXOOI/Github-Stats?node-id=0%3A1&t=MpCe8sVbv3BEwL9u-0)
 ## Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+For this project I used [npm](https://www.npmjs.com/) to manage libraries..
 
+#### 1. Clone or download this project
 ```bash
-pip install foobar
+git clone git@github.com:Camilo-J/GitHub-Stats.git
 ```
 
-## Usage
+#### 2. Install all the project's dependencies
+```bash
+npm install
+```
 
-```python
-import foobar
-
-# returns 'words'
-foobar.pluralize('word')
-
-# returns 'geese'
-foobar.pluralize('goose')
-
-# returns 'phenomenon'
-foobar.singularize('phenomena')
+#### 3. Raise the server.That's all, Enjoy the project!! 😀
+```bash
+npm start
 ```
 
 ## Contributing
